@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionService } from 'src/app/services/question.service';
 import { Observable } from 'rxjs';
-import { Question, Answer } from 'src/app/models/question.model';
+import { Question } from 'src/app/models/question.model';
+import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
   selector: 'app-question-container',
@@ -10,11 +10,13 @@ import { Question, Answer } from 'src/app/models/question.model';
 })
 export class QuestionContainerComponent implements OnInit {
   question$: Observable<Question>;
+  questionHistory$: Observable<Question[]>;
 
   constructor(private readonly questionService: QuestionService) {}
 
   ngOnInit() {
     this.question$ = this.questionService.questions$;
+    this.questionHistory$ = this.questionService.questionHistory$;
   }
 
   getNextQuestion() {

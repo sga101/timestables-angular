@@ -9,7 +9,11 @@ export class QuestionService {
   constructor() {
     this.currentQuestion = this.generateQuestion();
     this.questionSubject = new BehaviorSubject<Question>(this.currentQuestion);
+    this.questionHistorySubject = new BehaviorSubject<Question[]>(
+      this.questionHistory
+    );
     this.questions$ = this.questionSubject.asObservable();
+    this.questionHistory$ = this.questionHistorySubject.asObservable();
   }
 
   private questionSubject: BehaviorSubject<Question>;

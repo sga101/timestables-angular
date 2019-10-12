@@ -13,9 +13,10 @@ import { QuestionContainerComponent } from './containers/question-container/ques
 import { AnswerComponent } from './components/answer/answer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TimerComponent } from './components/timer/timer.component';
+import { SummaryComponent } from './components/summary/summary.component';
 
 @NgModule({
-  declarations: [AppComponent, QuestionComponent, QuestionContainerComponent, AnswerComponent, TimerComponent],
+  declarations: [AppComponent, QuestionComponent, QuestionContainerComponent, AnswerComponent, TimerComponent, SummaryComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
