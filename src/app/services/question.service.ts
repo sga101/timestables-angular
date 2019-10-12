@@ -7,9 +7,8 @@ import { Question } from '../models/question.model';
 })
 export class QuestionService {
   constructor() {
-    this.questionSubject = new BehaviorSubject<Question>(
-      this.generateQuestion()
-    );
+    this.currentQuestion = this.generateQuestion();
+    this.questionSubject = new BehaviorSubject<Question>(this.currentQuestion);
     this.questions$ = this.questionSubject.asObservable();
   }
 
@@ -17,7 +16,6 @@ export class QuestionService {
   private currentQuestion: Question;
   private questionHistory: Question[] = [];
   private questionHistorySubject: BehaviorSubject<Question[]>;
-
 
   questions$: Observable<Question>;
 
