@@ -1,0 +1,6 @@
+<app-question
+  [question]="question$ | async"
+  (getNext)="getNextQuestion()"
+  (answeredQuestion)="answeredQuestion($event)"
+></app-question>
+<app-answer [question]="question$ | async"></app-answer>

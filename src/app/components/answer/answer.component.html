@@ -1,0 +1,6 @@
+<mat-card>
+  <div *ngIf="hasAnswers">
+    <p *ngIf="isCorrect; else wrong">Correct</p>
+    <ng-template #wrong><p>Try again</p> </ng-template>
+  </div>
+</mat-card>

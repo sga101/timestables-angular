@@ -1,0 +1,33 @@
+<mat-card>
+  <form [formGroup]="answerForm">
+    <p class="question">What is {{ question.x }} × {{ question.y }}?</p>
+    <mat-form-field>
+      <mat-label>Your Answer</mat-label>
+      <input
+        #answer
+        matInput
+        type="number"
+        inputmode="numeric"
+        name="answer"
+        required
+        formControlName="answer"
+        autocomplete="off"
+      />
+      <mat-error *ngIf="answer.invalid"
+        >Please enter a number between 1 and 144</mat-error
+      >
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="answerQuestion(answer.value)"
+    >
+      Submit
+    </button>
+  </form>
+
+  <app-timer
+    [startTime]="question?.startTime"
+    [completed]="answeredCorrectly"
+  ></app-timer>
+</mat-card>
