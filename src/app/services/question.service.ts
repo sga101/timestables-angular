@@ -52,7 +52,7 @@ export class QuestionService {
     this.questionSubject.next(this.currentQuestion);
 
     if (correct) {
-      timer(1000).subscribe(() => this.nextQuestion());
+      timer(100).subscribe(() => this.nextQuestion());
     }
   }
 
