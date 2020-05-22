@@ -18,12 +18,14 @@ import { takeWhile } from 'rxjs/operators';
 export class TimerComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private readonly cdr: ChangeDetectorRef) {}
 
+  @Input() initialStartTime: number;
   @Input() startTime: number;
 
   @Input() completed = false;
 
   timeElapsed = '0';
 
+  totalTime = '0';
   timer$: Observable<number>;
 
   ngOnInit() {}
@@ -41,6 +43,9 @@ export class TimerComponent implements OnInit, OnDestroy, OnChanges {
     this.timer$ = timer(1000, 1000);
     this.timer$.pipe(takeWhile(() => !this.completed)).subscribe(() => {
       this.timeElapsed = Math.floor(
+        (Date.now() - this.startTime) / 1000
+      ).toString();
+      this.totalTime =  Math.floor(
         (Date.now() - this.startTime) / 1000
       ).toString();
       this.cdr.markForCheck();

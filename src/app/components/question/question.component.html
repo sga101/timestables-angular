@@ -27,6 +27,7 @@
   </form>
 
   <app-timer
+    [initialStartTime]="initialStartTime"
     [startTime]="question?.startTime"
     [completed]="answeredCorrectly"
   ></app-timer>

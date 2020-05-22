@@ -11,8 +11,11 @@ import { QuestionService } from 'src/app/services/question.service';
 export class QuestionContainerComponent implements OnInit {
   question$: Observable<Question>;
   questionHistory$: Observable<Question[]>;
+  initialStartTime : number;
 
-  constructor(private readonly questionService: QuestionService) {}
+  constructor(private readonly questionService: QuestionService) {
+    this.initialStartTime = questionService.initialStartTime;
+  }
 
   ngOnInit() {
     this.question$ = this.questionService.questions$;

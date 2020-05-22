@@ -26,7 +26,6 @@ export class SummaryComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    
     if (changes.questionHistory && !!this.questionHistory) {
       this.total = this.questionHistory.length;
       if (this.total > 0) {

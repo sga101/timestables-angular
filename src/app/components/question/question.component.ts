@@ -23,6 +23,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuestionComponent implements OnInit, OnChanges {
+  @Input() initialStartTime: number;
   @Input() question: Question;
   @Output() getNextQuestion = new EventEmitter<void>();
   @Output() answeredQuestion = new EventEmitter<number>();

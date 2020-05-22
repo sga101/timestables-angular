@@ -14,12 +14,15 @@ export class QuestionService {
     );
     this.questions$ = this.questionSubject.asObservable();
     this.questionHistory$ = this.questionHistorySubject.asObservable();
+    this.initialStartTime = Date.now();
   }
 
   private questionSubject: BehaviorSubject<Question>;
   private currentQuestion: Question;
   private questionHistory: Question[] = [];
   private questionHistorySubject: BehaviorSubject<Question[]>;
+
+  public initialStartTime: number;
 
   questions$: Observable<Question>;
 
@@ -44,8 +47,9 @@ export class QuestionService {
         timeTaken
       })
     };
+    this.currentQuestion = answeredQuestion;
 
-    this.questionSubject.next(answeredQuestion);
+    this.questionSubject.next(this.currentQuestion);
 
     if (correct) {
       timer(1000).subscribe(() => this.nextQuestion());
