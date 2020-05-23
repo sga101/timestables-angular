@@ -1,0 +1,7 @@
+<ng-container *ngIf="results">
+  <h1>Congratulations!</h1>
+  <p>You answered {{ results.totalQuestions }} questions in {{ results.totalTime / 1000 | number }} seconds</p>
+  <p>That's {{ results.averageTime / 1000 | number }} seconds per question!</p>
+  <p *ngIf="results.wrongAnswers.length == 0">Amazing job - You got all the questions right!</p>
+  <button mat-raised-button color="primary" (click)="startAgain()">Start a new test</button>
+</ng-container>

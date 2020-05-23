@@ -42,7 +42,7 @@ export class QuestionComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.question) {
+    if (changes.question && this.question) {
       this.answered = this.question.answers.length > 0;
       if (!this.answered) {
         this.answer.reset();

@@ -1,10 +1,8 @@
 <mat-card [class.mat-elevation-z0]>
-<div class="cardList">
-<app-question
-  [question]="question$ | async"
-  (answeredQuestion)="answeredQuestion($event)"
-></app-question>
-<app-answer [question]="question$ | async"></app-answer>
-</div>
+  <div class="cardList">
+    <app-question [question]="question$ | async" (answeredQuestion)="answeredQuestion($event)"></app-question>
+    <app-answer [question]="question$ | async"></app-answer>
+    <app-results [results]="results$ | async" (startAgainClicked)="startAgain()"></app-results>
+  </div>
 </mat-card>
 <app-summary [summaryData]="summaryData$ | async"></app-summary>

@@ -15,6 +15,7 @@ import { SummaryComponent } from './components/summary/summary.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { QuestionContainerComponent } from './containers/question-container/question-container.component';
 import { AutoFocusDirective } from './focus.directive';
+import { ResultsComponent } from './components/results/results.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AutoFocusDirective } from './focus.directive';
     AnswerComponent,
     TimerComponent,
     SummaryComponent,
-    AutoFocusDirective
+    AutoFocusDirective,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,

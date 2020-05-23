@@ -1,4 +1,4 @@
-<div >
+<div *ngIf="question" >
   <p [ngClass]="{ good: hasAnswers && isCorrect, bad: hasAnswers && !isCorrect }">
     <ng-container *ngIf="hasAnswers; else submitAnswer">
       <ng-container *ngIf="isCorrect; else wrong">Correct</ng-container>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { Question } from '../models/question.model';
+import { ResultsService } from './results.service';
 import { TimerService } from './timer.service';
 
 const defaultQuestions = 20;
@@ -9,7 +10,7 @@ const defaultQuestions = 20;
   providedIn: 'root'
 })
 export class QuestionService {
-  constructor(private timerService: TimerService) {
+  constructor(private timerService: TimerService, private resultsService: ResultsService) {
     this.currentQuestion = this.generateQuestion();
     this.questionSubject = new BehaviorSubject<Question>(this.currentQuestion);
     this.questionHistorySubject = new BehaviorSubject<Question[]>(this.questionHistory);
@@ -33,10 +34,12 @@ export class QuestionService {
 
   remaining$: Observable<number>;
 
-  reset(questionsToAsk: number): void {
+  reset(questionsToAsk: number = defaultQuestions): void {
     this.totalQuestions = questionsToAsk;
     this.questionHistory = [];
     this.nextQuestion();
+    this.resultsService.reset();
+    this.timerService.reset();
   }
 
   nextQuestion(previousQuestion: Question = null): void {
@@ -68,7 +71,14 @@ export class QuestionService {
     this.questionSubject.next(this.currentQuestion);
 
     if (correct) {
-      timer(500).subscribe(() => this.nextQuestion(this.currentQuestion));
+      if (this.questionHistory.length < this.totalQuestions) {
+        timer(500).subscribe(() => this.nextQuestion(this.currentQuestion));
+      } else {
+        this.timerService.stopTimer();
+        this.currentQuestion = null;
+        this.questionSubject.next(this.currentQuestion);
+        this.resultsService.buildResults(this.questionHistory);
+      }
     }
   }
 

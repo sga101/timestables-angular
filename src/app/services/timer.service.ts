@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { threadId } from 'worker_threads';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,12 @@ export class TimerService {
     this.resetSubject = new Subject();
   }
 
+  reset(): void {
+    this.initialStartTime = Date.now();
+    this.resetSubject.next(true);
+    this.startTimer();
+  }
+
   startTimer(): void {
     if (!this.initialStartTime) {
       this.initialStartTime = Date.now();
@@ -40,5 +47,9 @@ export class TimerService {
       this.questionTimeSubject.next(timeElapsed);
       this.totalTimeSubject.next(totalTime);
     });
+  }
+
+  stopTimer(): void {
+    this.resetSubject.next(true);
   }
 }

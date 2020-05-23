@@ -15,9 +15,11 @@ export class AnswerComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.question) {
-      this.hasAnswers = this.question.answers.length > 0;
-      if (this.hasAnswers) {
-        this.isCorrect = this.question.answers[this.question.answers.length - 1].correct;
+      if (this.question) {
+        this.hasAnswers = this.question.answers.length > 0;
+        if (this.hasAnswers) {
+          this.isCorrect = this.question.answers[this.question.answers.length - 1].correct;
+        }
       }
     }
   }
