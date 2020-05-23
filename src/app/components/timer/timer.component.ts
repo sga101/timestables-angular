@@ -1,5 +1,5 @@
-import { Component, Input, OnDestroy, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
-import { timer, Observable } from 'rxjs';
+import { Component, Input, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import { timer, Observable, BehaviorSubject } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 
 @Component({
@@ -8,7 +8,19 @@ import { takeWhile } from 'rxjs/operators';
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements OnDestroy, OnChanges {
-  constructor(private readonly cdr: ChangeDetectorRef) {}
+  totalTimeSubject: BehaviorSubject<string>;
+  questionTimeSubject: BehaviorSubject<string>;
+
+  totalTime$: Observable<string>;
+  questionTime$: Observable<string>;
+
+  constructor() {
+    this.totalTimeSubject = new BehaviorSubject('');
+    this.totalTime$ = this.totalTimeSubject.asObservable();
+
+    this.questionTimeSubject = new BehaviorSubject('');
+    this.questionTime$ = this.questionTimeSubject.asObservable();
+  }
 
   @Input() initialStartTime: number;
   @Input() startTime: number;
@@ -34,7 +46,8 @@ export class TimerComponent implements OnDestroy, OnChanges {
     this.timer$.pipe(takeWhile(() => !this.completed)).subscribe(() => {
       this.timeElapsed = Math.floor((Date.now() - this.startTime) / 1000).toString();
       this.totalTime = Math.floor((Date.now() - this.initialStartTime) / 1000).toString();
-      this.cdr.markForCheck();
+      this.questionTimeSubject.next(this.timeElapsed);
+      this.totalTimeSubject.next(this.totalTime);
     });
   }
 
