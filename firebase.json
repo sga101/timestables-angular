@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "timesTables",
+      "public": "dist/timesTables",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}
