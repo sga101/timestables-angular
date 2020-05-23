@@ -9,9 +9,7 @@ export class QuestionService {
   constructor() {
     this.currentQuestion = this.generateQuestion();
     this.questionSubject = new BehaviorSubject<Question>(this.currentQuestion);
-    this.questionHistorySubject = new BehaviorSubject<Question[]>(
-      this.questionHistory
-    );
+    this.questionHistorySubject = new BehaviorSubject<Question[]>(this.questionHistory);
     this.questions$ = this.questionSubject.asObservable();
     this.questionHistory$ = this.questionHistorySubject.asObservable();
     this.initialStartTime = Date.now();
@@ -28,14 +26,14 @@ export class QuestionService {
 
   questionHistory$: Observable<Question[]>;
 
-  nextQuestion() {
+  nextQuestion(): void {
     this.questionHistory = this.questionHistory.concat(this.currentQuestion);
     this.questionHistorySubject.next(this.questionHistory);
     this.currentQuestion = this.generateQuestion();
     this.questionSubject.next(this.currentQuestion);
   }
 
-  answerQuestion(answer: number) {
+  answerQuestion(answer: number): void {
     const correctAnswer = this.currentQuestion.x * this.currentQuestion.y;
     const correct = answer === correctAnswer;
     const timeTaken = Date.now() - this.currentQuestion.startTime;
@@ -60,7 +58,7 @@ export class QuestionService {
   generateQuestion(): Question {
     const x = this.getRandomNumber(1, 12);
     const y = this.getRandomNumber(1, 12);
-    return { x, y, startTime: Date.now(), answers: [] , endTime: 0};
+    return { x, y, startTime: Date.now(), answers: [], endTime: 0 };
   }
 
   getRandomNumber(min: number, max: number): number {

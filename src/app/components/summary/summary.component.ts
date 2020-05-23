@@ -1,11 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { Question } from 'src/app/models/question.model';
 
 export interface TableSummary {
@@ -19,9 +12,9 @@ export interface TableSummary {
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
-  styleUrls: ['./summary.component.css'],
+  styleUrls: ['./summary.component.css']
 })
-export class SummaryComponent implements OnInit, OnChanges {
+export class SummaryComponent implements OnChanges {
   @Input() questionHistory: Question[];
 
   summaryData: TableSummary[] = [];
@@ -30,24 +23,20 @@ export class SummaryComponent implements OnInit, OnChanges {
 
   constructor(private readonly cdr: ChangeDetectorRef) {}
 
-  ngOnInit() {}
-
   getSummary(table: number, questions: Question[]): TableSummary {
     const result: TableSummary = {
       table,
       answered: 0,
       totalTime: 0,
       averageTimePerQuestion: 0,
-      rightFirstTime: 0,
+      rightFirstTime: 0
     };
 
     result.answered = questions.length;
     if (result.answered > 0) {
-      result.totalTime = questions.reduce((acc, curr)=> acc + curr.endTime - curr.startTime, 0);
+      result.totalTime = questions.reduce((acc, curr) => acc + curr.endTime - curr.startTime, 0);
       result.averageTimePerQuestion = result.totalTime / result.answered;
-      result.rightFirstTime = questions.filter(
-        (q) => q.answers.length === 1
-      ).length;
+      result.rightFirstTime = questions.filter((q) => q.answers.length === 1).length;
     }
     return result;
   }
@@ -63,7 +52,7 @@ export class SummaryComponent implements OnInit, OnChanges {
           )
         );
       }
-      data =  data.sort((a,b)=> b.averageTimePerQuestion - a.averageTimePerQuestion);
+      data = data.sort((a, b) => b.averageTimePerQuestion - a.averageTimePerQuestion);
 
       data.push(this.getSummary(0, this.questionHistory));
       this.summaryData = data;

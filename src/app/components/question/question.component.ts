@@ -1,28 +1,19 @@
 import {
-  Component,
-  Input,
-  OnInit,
-  Output,
-  EventEmitter,
   ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
   OnChanges,
+  Output,
   SimpleChanges
 } from '@angular/core';
-import { Question } from 'src/app/models/question.model';
-import {
-  FormControl,
-  Validators,
-  FormBuilder,
-  FormGroup,
-  FormGroupDirective,
-  NgForm
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-
+import { Question } from 'src/app/models/question.model';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class WhenDirtyAndInvalidMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: FormControl | null): boolean {
     return !!(control && control.invalid && (control.dirty || control.touched));
   }
 }
@@ -33,7 +24,7 @@ export class WhenDirtyAndInvalidMatcher implements ErrorStateMatcher {
   styleUrls: ['./question.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class QuestionComponent implements OnInit, OnChanges {
+export class QuestionComponent implements OnChanges {
   @Input() initialStartTime: number;
   @Input() question: Question;
   @Output() getNextQuestion = new EventEmitter<void>();
@@ -46,17 +37,11 @@ export class QuestionComponent implements OnInit, OnChanges {
   answered = false;
   answeredCorrectly = false;
 
-  answer = new FormControl('', [
-    Validators.required,
-    Validators.min(1),
-    Validators.max(144)
-  ]);
+  answer = new FormControl('', [Validators.required, Validators.min(1), Validators.max(144)]);
 
   constructor(private readonly formBuilder: FormBuilder) {
     this.answerForm = this.formBuilder.group({ answer: this.answer });
   }
-
-  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.question) {
@@ -64,12 +49,11 @@ export class QuestionComponent implements OnInit, OnChanges {
       if (!this.answered) {
         this.answer.reset();
       }
-      this.answeredCorrectly =
-        this.question.answers.filter(a => a.correct).length > 0;
+      this.answeredCorrectly = this.question.answers.filter((a) => a.correct).length > 0;
     }
   }
 
-  answerQuestion(answer: string) {
+  answerQuestion(answer: string): void {
     const parsed = parseInt(answer, 10);
     if (!isNaN(parsed)) {
       this.answeredQuestion.emit(parsed);
