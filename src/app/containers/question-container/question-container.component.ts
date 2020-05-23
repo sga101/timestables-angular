@@ -16,26 +16,16 @@ export class QuestionContainerComponent implements OnInit {
   question$: Observable<Question>;
   questionHistory$: Observable<Question[]>;
   summaryData$: Observable<TableSummary[]>;
-  initialStartTime: number;
   startTime$: Observable<number>;
-  completed$: Observable<boolean>;
 
-  constructor(private readonly questionService: QuestionService, private summaryService: SummaryService) {
-    this.initialStartTime = questionService.initialStartTime;
-  }
+  constructor(private readonly questionService: QuestionService, private summaryService: SummaryService) {}
 
   ngOnInit(): void {
     this.question$ = this.questionService.questions$;
     this.questionHistory$ = this.questionService.questionHistory$;
     this.startTime$ = this.question$.pipe(map((q) => q.startTime));
-    this.completed$ = this.question$.pipe(map((q) => q.answers.filter((a) => a.correct).length > 0));
     this.summaryData$ = this.summaryService.summary$;
   }
-
-  getNextQuestion(): void {
-    this.questionService.generateQuestion();
-  }
-
   answeredQuestion(answer: number): void {
     this.questionService.answerQuestion(answer);
   }

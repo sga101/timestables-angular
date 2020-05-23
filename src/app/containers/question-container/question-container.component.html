@@ -1,13 +1,7 @@
 <app-question
   [question]="question$ | async"
-  [initialStartTime] = "initialStartTime"
-  (getNext)="getNextQuestion()"
   (answeredQuestion)="answeredQuestion($event)"
 ></app-question>
 <app-answer [question]="question$ | async"></app-answer>
-<app-timer
-[initialStartTime]="initialStartTime"
-[startTime]="startTime$ | async"
-[completed]="completed$ |async"
-></app-timer>
+<app-timer> ></app-timer>
 <app-summary [summaryData]="summaryData$ | async"></app-summary>

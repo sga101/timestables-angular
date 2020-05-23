@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { TableSummary } from '../components/summary/summary.component';
 import { Question } from '../models/question.model';
 import { QuestionService } from './question.service';

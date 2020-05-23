@@ -25,9 +25,7 @@ export class WhenDirtyAndInvalidMatcher implements ErrorStateMatcher {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuestionComponent implements OnChanges {
-  @Input() initialStartTime: number;
   @Input() question: Question;
-  @Output() getNextQuestion = new EventEmitter<void>();
   @Output() answeredQuestion = new EventEmitter<number>();
 
   answerForm: FormGroup;

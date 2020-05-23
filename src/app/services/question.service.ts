@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { Question } from '../models/question.model';
+import { TimerService } from './timer.service';
 
 const defaultQuestions = 20;
 
@@ -8,7 +9,7 @@ const defaultQuestions = 20;
   providedIn: 'root'
 })
 export class QuestionService {
-  constructor() {
+  constructor(private timerService: TimerService) {
     this.currentQuestion = this.generateQuestion();
     this.questionSubject = new BehaviorSubject<Question>(this.currentQuestion);
     this.questionHistorySubject = new BehaviorSubject<Question[]>(this.questionHistory);
@@ -26,8 +27,6 @@ export class QuestionService {
   private totalQuestions: number;
   private remainingSubject: BehaviorSubject<number>;
 
-  public initialStartTime: number;
-
   questions$: Observable<Question>;
 
   questionHistory$: Observable<Question[]>;
@@ -37,15 +36,18 @@ export class QuestionService {
   reset(questionsToAsk: number): void {
     this.totalQuestions = questionsToAsk;
     this.questionHistory = [];
-    this.initialStartTime = Date.now();
+    this.nextQuestion();
   }
 
-  nextQuestion(): void {
-    this.questionHistory = this.questionHistory.concat(this.currentQuestion);
-    this.questionHistorySubject.next(this.questionHistory);
+  nextQuestion(previousQuestion: Question = null): void {
+    if (previousQuestion) {
+      this.questionHistory = this.questionHistory.concat(previousQuestion);
+      this.questionHistorySubject.next(this.questionHistory);
+    }
     this.currentQuestion = this.generateQuestion();
     this.questionSubject.next(this.currentQuestion);
     this.remainingSubject.next(this.totalQuestions - this.questionHistory.length);
+    this.timerService.startTimer();
   }
 
   answerQuestion(answer: number): void {
@@ -66,7 +68,7 @@ export class QuestionService {
     this.questionSubject.next(this.currentQuestion);
 
     if (correct) {
-      timer(500).subscribe(() => this.nextQuestion());
+      timer(500).subscribe(() => this.nextQuestion(this.currentQuestion));
     }
   }
 
