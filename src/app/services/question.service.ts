@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { Question } from '../models/question.model';
 
+const defaultQuestions = 20;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,13 +14,17 @@ export class QuestionService {
     this.questionHistorySubject = new BehaviorSubject<Question[]>(this.questionHistory);
     this.questions$ = this.questionSubject.asObservable();
     this.questionHistory$ = this.questionHistorySubject.asObservable();
-    this.initialStartTime = Date.now();
+    this.remainingSubject = new BehaviorSubject(defaultQuestions);
+    this.remaining$ = this.remainingSubject.asObservable();
+    this.reset(defaultQuestions);
   }
 
   private questionSubject: BehaviorSubject<Question>;
   private currentQuestion: Question;
   private questionHistory: Question[] = [];
   private questionHistorySubject: BehaviorSubject<Question[]>;
+  private totalQuestions: number;
+  private remainingSubject: BehaviorSubject<number>;
 
   public initialStartTime: number;
 
@@ -26,11 +32,20 @@ export class QuestionService {
 
   questionHistory$: Observable<Question[]>;
 
+  remaining$: Observable<number>;
+
+  reset(questionsToAsk: number): void {
+    this.totalQuestions = questionsToAsk;
+    this.questionHistory = [];
+    this.initialStartTime = Date.now();
+  }
+
   nextQuestion(): void {
     this.questionHistory = this.questionHistory.concat(this.currentQuestion);
     this.questionHistorySubject.next(this.questionHistory);
     this.currentQuestion = this.generateQuestion();
     this.questionSubject.next(this.currentQuestion);
+    this.remainingSubject.next(this.totalQuestions - this.questionHistory.length);
   }
 
   answerQuestion(answer: number): void {
