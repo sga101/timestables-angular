@@ -1,12 +1,10 @@
-<mat-card>
-  <div [ngClass]="{'good': hasAnswers && isCorrect, 'bad': hasAnswers && !isCorrect}">
-    <p>
-        <ng-container *ngIf="hasAnswers; else submitAnswer">
-          <ng-container *ngIf="isCorrect; else wrong">Correct</ng-container>
-          <ng-template #wrong><p>Try again</p> </ng-template>
-        </ng-container>
-        <ng-template #submitAnswer><p>Type in your answer</p> </ng-template>
-    </p>
-
-  </div>
-</mat-card>
+<div >
+  <p [ngClass]="{ good: hasAnswers && isCorrect, bad: hasAnswers && !isCorrect }">
+    <ng-container *ngIf="hasAnswers; else submitAnswer">
+      <ng-container *ngIf="isCorrect; else wrong">Correct</ng-container>
+      <ng-template #wrong><p>Try again</p> </ng-template>
+    </ng-container>
+    <ng-template #submitAnswer><p>Type in your answer</p> </ng-template>
+  </p>
+  <app-timer></app-timer>
+</div>

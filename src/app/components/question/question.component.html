@@ -1,6 +1,7 @@
-<mat-card>
+
+  <div class="cardList">
   <form [formGroup]="answerForm">
-    <p class="question">What is {{ question.x }} × {{ question.y }}?</p>
+    <p class="question">What is {{ question.x }}&nbsp;×&nbsp;{{ question.y }}?</p>
     <mat-form-field>
       <mat-label>Your Answer</mat-label>
       <input
@@ -28,4 +29,5 @@
       Submit
     </button>
   </form>
-</mat-card>
+</div>
+
