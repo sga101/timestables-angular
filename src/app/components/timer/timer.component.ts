@@ -46,7 +46,7 @@ export class TimerComponent implements OnInit, OnDestroy, OnChanges {
         (Date.now() - this.startTime) / 1000
       ).toString();
       this.totalTime =  Math.floor(
-        (Date.now() - this.startTime) / 1000
+        (Date.now() - this.initialStartTime) / 1000
       ).toString();
       this.cdr.markForCheck();
     });

@@ -12,10 +12,13 @@
         required
         formControlName="answer"
         autocomplete="off"
+        [errorStateMatcher] = "errorMatcher"
+        appAutofocus
       />
       <mat-error *ngIf="answer.invalid"
         >Please enter a number between 1 and 144</mat-error
       >
+      <mat-error *ngIf="answer.required"> Please enter your answer</mat-error>
     </mat-form-field>
     <button
       mat-raised-button
@@ -25,10 +28,4 @@
       Submit
     </button>
   </form>
-
-  <app-timer
-    [initialStartTime]="initialStartTime"
-    [startTime]="question?.startTime"
-    [completed]="answeredCorrectly"
-  ></app-timer>
 </mat-card>

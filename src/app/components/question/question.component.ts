@@ -13,8 +13,19 @@ import {
   FormControl,
   Validators,
   FormBuilder,
-  FormGroup
+  FormGroup,
+  FormGroupDirective,
+  NgForm
 } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class WhenDirtyAndInvalidMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+}
 
 @Component({
   selector: 'app-question',
@@ -29,6 +40,8 @@ export class QuestionComponent implements OnInit, OnChanges {
   @Output() answeredQuestion = new EventEmitter<number>();
 
   answerForm: FormGroup;
+
+  errorMatcher = new WhenDirtyAndInvalidMatcher();
 
   answered = false;
   answeredCorrectly = false;

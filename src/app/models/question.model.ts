@@ -2,6 +2,7 @@ export interface Question {
   x: number;
   y: number;
   startTime: number;
+  endTime: number;
   answers: Answer[];
 }
 

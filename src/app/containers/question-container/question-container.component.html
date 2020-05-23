@@ -5,4 +5,9 @@
   (answeredQuestion)="answeredQuestion($event)"
 ></app-question>
 <app-answer [question]="question$ | async"></app-answer>
+<app-timer
+[initialStartTime]="initialStartTime"
+[startTime]="startTime$ | async"
+[completed]="completed$ |async"
+></app-timer>
 <app-summary [questionHistory]="questionHistory$ | async"></app-summary>

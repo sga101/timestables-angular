@@ -1,10 +1,31 @@
-<dl>
-  <dt>Questions answered</dt>
-  <dd>{{ total }}</dd>
-  <dt>Right First Time</dt>
-  <dd>{{ rightFirstTime }}</dd>
-  <dt>Time per question</dt>
-  <dd>{{ questionsPerSecond }}</dd>
-  <dt>Total time</dt>
-  <dd>{{ totalTime }}</dd>
-</dl>
+<table mat-table [dataSource]="summaryData" style="width: 100%;">
+  <ng-container matColumnDef="table">
+    <th mat-header-cell *matHeaderCellDef>Times Table</th>
+    <td mat-cell *matCellDef="let summary">
+      {{ summary.table === 0 ? "Totals" : summary.table }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="answered">
+    <th mat-header-cell *matHeaderCellDef>Questions answered</th>
+    <td mat-cell *matCellDef="let summary">{{ summary.answered }}</td>
+  </ng-container>
+  <ng-container matColumnDef="totalTime">
+    <th mat-header-cell *matHeaderCellDef>Total Time</th>
+    <td mat-cell *matCellDef="let summary">
+      {{ summary.totalTime / 1000 | number: "1.0-1" }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="timePerQuestion">
+    <th mat-header-cell *matHeaderCellDef>Time per question</th>
+    <td mat-cell *matCellDef="let summary">
+      {{ summary.averageTimePerQuestion / 1000 | number: "1.0-1" }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="rightFirstTime">
+    <th mat-header-cell *matHeaderCellDef>Right First Time</th>
+    <td mat-cell *matCellDef="let summary">{{ summary.rightFirstTime }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+</table>

@@ -45,21 +45,22 @@ export class QuestionService {
         answer,
         correct,
         timeTaken
-      })
+      }),
+      endTime: Date.now()
     };
     this.currentQuestion = answeredQuestion;
 
     this.questionSubject.next(this.currentQuestion);
 
     if (correct) {
-      timer(100).subscribe(() => this.nextQuestion());
+      timer(500).subscribe(() => this.nextQuestion());
     }
   }
 
   generateQuestion(): Question {
     const x = this.getRandomNumber(1, 12);
     const y = this.getRandomNumber(1, 12);
-    return { x, y, startTime: Date.now(), answers: [] };
+    return { x, y, startTime: Date.now(), answers: [] , endTime: 0};
   }
 
   getRandomNumber(min: number, max: number): number {
