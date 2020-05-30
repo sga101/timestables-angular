@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { Question } from '../models/question.model';
 import { ResultsService } from './results.service';
 import { TimerService } from './timer.service';
+import { RandomNumbersService } from './random-numbers.service';
 
 const defaultQuestions = 20;
 
@@ -10,7 +11,11 @@ const defaultQuestions = 20;
   providedIn: 'root'
 })
 export class QuestionService {
-  constructor(private timerService: TimerService, private resultsService: ResultsService) {
+  constructor(
+    private timerService: TimerService,
+    private resultsService: ResultsService,
+    private randomNumbersService: RandomNumbersService
+  ) {
     this.currentQuestion = this.generateQuestion();
     this.questionSubject = new BehaviorSubject<Question>(this.currentQuestion);
     this.questionHistorySubject = new BehaviorSubject<Question[]>(this.questionHistory);
@@ -64,32 +69,37 @@ export class QuestionService {
         correct,
         timeTaken
       }),
+      answered: true,
+      answeredCorrectly: correct,
       endTime: Date.now()
     };
+
     this.currentQuestion = answeredQuestion;
 
     this.questionSubject.next(this.currentQuestion);
 
     if (correct) {
-      if (this.questionHistory.length < this.totalQuestions) {
-        timer(500).subscribe(() => this.nextQuestion(this.currentQuestion));
-      } else {
-        this.timerService.stopTimer();
-        this.currentQuestion = null;
-        this.questionSubject.next(this.currentQuestion);
-        this.resultsService.buildResults(this.questionHistory);
-      }
+      const finished = this.questionHistory.length + 1 === this.totalQuestions;
+      finished ? this.endGame() : this.provideNextQuestion();
     }
   }
 
-  generateQuestion(): Question {
-    const x = this.getRandomNumber(1, 12);
-    const y = this.getRandomNumber(1, 12);
-    return { x, y, startTime: Date.now(), answers: [], endTime: 0 };
+  private provideNextQuestion() {
+    timer(500).subscribe(() => this.nextQuestion(this.currentQuestion));
   }
 
-  getRandomNumber(min: number, max: number): number {
-    const range = max - min;
-    return min + Math.floor(Math.random() * (range + 1));
+  private endGame() {
+    this.timerService.stopTimer();
+    this.questionHistory = this.questionHistory.concat(this.currentQuestion);
+    this.questionHistorySubject.next(this.questionHistory);
+    this.currentQuestion = null;
+    this.questionSubject.next(this.currentQuestion);
+    this.resultsService.buildResults(this.questionHistory);
+  }
+
+  generateQuestion(): Question {
+    const x = this.randomNumbersService.getRandomNumber(1, 12);
+    const y = this.randomNumbersService.getRandomNumber(1, 12);
+    return { x, y, startTime: Date.now(), answers: [], endTime: 0, answered: false, answeredCorrectly: false };
   }
 }

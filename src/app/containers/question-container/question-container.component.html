@@ -1,8 +1,20 @@
 <mat-card [class.mat-elevation-z0]>
   <div class="cardList">
-    <app-question [question]="question$ | async" (answeredQuestion)="answeredQuestion($event)"></app-question>
-    <app-answer [question]="question$ | async"></app-answer>
-    <app-results [results]="results$ | async" (startAgainClicked)="startAgain()"></app-results>
+    <mat-tab-group>
+      <mat-tab label="Type in your answer">
+        <app-keyed-in-answer [question]="question$ | async" (answeredQuestion)="answeredQuestion($event)">
+        </app-keyed-in-answer>
+      </mat-tab>
+      <mat-tab label="Multiple choice">
+        <app-multiple-choices-answers
+          [question]="question$ | async"
+          [choices]="choices$ | async"
+          (answeredQuestion)="answeredQuestion($event)"
+        ></app-multiple-choices-answers>
+      </mat-tab>
+    </mat-tab-group>
+
   </div>
+  <app-results [results]="results$ | async" (startAgainClicked)="startAgain()"></app-results>
 </mat-card>
 <app-summary [summaryData]="summaryData$ | async"></app-summary>

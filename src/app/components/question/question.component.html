@@ -1,32 +1,4 @@
-<div>
-  <form [formGroup]="answerForm" *ngIf="question">
-    <p class="question">
-      <ng-container *ngIf="question.x < 10">&nbsp;</ng-container>{{ question.x }}&nbsp;×&nbsp;<ng-container
-        *ngIf="question.y < 10"
-        >&nbsp;</ng-container
-      >{{ question.y }}
-    </p>
-    <mat-form-field floatLabel="always">
-      <mat-label>Answer</mat-label>
-      <input
-        #answer
-        matInput
-        type="number"
-        inputmode="numeric"
-        name="answer"
-        required
-        formControlName="answer"
-        autocomplete="off"
-        [errorStateMatcher]="errorMatcher"
-        appAutofocus
-      />
-      <mat-error *ngIf="answer.invalid">Please enter a number between 1 and 144</mat-error>
-      <mat-error *ngIf="answer.required"> Please enter your answer</mat-error>
-    </mat-form-field>
-    <div>
-      <button mat-raised-button color="primary" (click)="answerQuestion(answer.value)">
-        Submit
-      </button>
-    </div>
-  </form>
-</div>
+<ng-container *ngIf="question.x < 10">&nbsp;</ng-container>{{ question.x }}&nbsp;×&nbsp;<ng-container
+  *ngIf="question.y < 10"
+  >&nbsp;</ng-container
+>{{ question.y }}

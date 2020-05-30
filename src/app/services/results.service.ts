@@ -52,7 +52,7 @@ export class ResultsService {
           curr.answers.find((a) => a.correct).timeTaken < Math.min(5, curr.endTime - curr.startTime) ? curr : acc,
         questions[0]
       ),
-      wrongAnswers: [],
+      wrongAnswers: questions.filter((q) => q.answers.length > 1),
       starRating: 5
     };
     this.resultsSubject.next(results);

@@ -5,10 +5,14 @@
   font-family: monospace;
 }
 
-span {
-  margin-left: 10px;
-  margin-top:0;
-  margin-bottom: 0;
+input {
   font-size: 52px;
+  font-family: monospace;
+  width: 8rem;
 }
 
+button {
+  margin-left: 10px;
+  font-size: 52px;
+  height: 61px;
+}

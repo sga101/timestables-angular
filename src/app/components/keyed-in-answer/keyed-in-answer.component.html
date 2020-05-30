@@ -1,0 +1,24 @@
+<div>
+  <form [formGroup]="answerForm" *ngIf="question">
+    <label class="question">
+      <app-question [question]="question"></app-question>=
+      <input
+        #answer
+        type="number"
+        inputmode="numeric"
+        name="answer"
+        required
+        autocomplete="off"
+        appAutofocus
+        maxlength="3"
+        formControlName="answer"
+      />
+      <button mat-raised-button color="primary" (click)="answerQuestion(answer.value)">
+        Submit
+      </button>
+    </label>
+  </form>
+  <div>
+    <app-answer-feedback [question]="question"></app-answer-feedback>
+  </div>
+</div>
