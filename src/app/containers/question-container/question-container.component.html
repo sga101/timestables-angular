@@ -1,4 +1,7 @@
 <mat-card [class.mat-elevation-z0]>
+  <app-table-chooser [selected] = "selectedTables$ | async"></app-table-chooser>
+</mat-card>
+<mat-card [class.mat-elevation-z0]>
   <div class="cardList">
     <mat-tab-group>
       <mat-tab label="Type in your answer">

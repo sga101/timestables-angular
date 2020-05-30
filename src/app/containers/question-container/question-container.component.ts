@@ -8,6 +8,8 @@ import { QuestionService } from 'src/app/services/question.service';
 import { ResultsService } from 'src/app/services/results.service';
 import { SummaryService } from 'src/app/services/summary.service';
 import { Choices, MultiChoiceAnswersService } from 'src/app/services/multi-choice-answers.service';
+import { TableSelectionService } from 'src/app/services/table-selection.service';
+import { TableSelection } from 'src/app/models/table-selection.model';
 
 @Component({
   selector: 'app-question-container',
@@ -22,12 +24,14 @@ export class QuestionContainerComponent implements OnInit {
   choices$: Observable<Choices>;
   startTime$: Observable<number>;
   results$: Observable<Results>;
+  selectedTables$: Observable<TableSelection[]>;
 
   constructor(
     private readonly questionService: QuestionService,
     private summaryService: SummaryService,
     private resultsService: ResultsService,
-    private choicesService: MultiChoiceAnswersService
+    private choicesService: MultiChoiceAnswersService,
+    private selectedTablesService: TableSelectionService
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +41,7 @@ export class QuestionContainerComponent implements OnInit {
     this.summaryData$ = this.summaryService.summary$;
     this.results$ = this.resultsService.results$;
     this.choices$ = this.choicesService.choices$;
+    this.selectedTables$ = this.selectedTablesService.selected$;
   }
   answeredQuestion(answer: number): void {
     this.questionService.answerQuestion(answer);

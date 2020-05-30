@@ -4,6 +4,10 @@ import { Question } from '../models/question.model';
 import { ResultsService } from './results.service';
 import { TimerService } from './timer.service';
 import { RandomNumbersService } from './random-numbers.service';
+import { TableSelectionService } from './table-selection.service';
+import { TableSelection } from '../models/table-selection.model';
+import { tap } from 'rxjs/operators';
+import { EmailValidator } from '@angular/forms';
 
 const defaultQuestions = 20;
 
@@ -11,11 +15,15 @@ const defaultQuestions = 20;
   providedIn: 'root'
 })
 export class QuestionService {
+  selectedTables: TableSelection[];
+
   constructor(
     private timerService: TimerService,
     private resultsService: ResultsService,
-    private randomNumbersService: RandomNumbersService
+    private randomNumbersService: RandomNumbersService,
+    private tableSelectionService: TableSelectionService
   ) {
+    this.tableSelectionService.selected$.pipe(tap((selected) => (this.selectedTables = selected))).subscribe();
     this.currentQuestion = this.generateQuestion();
     this.questionSubject = new BehaviorSubject<Question>(this.currentQuestion);
     this.questionHistorySubject = new BehaviorSubject<Question[]>(this.questionHistory);
@@ -98,8 +106,17 @@ export class QuestionService {
   }
 
   generateQuestion(): Question {
-    const x = this.randomNumbersService.getRandomNumber(1, 12);
-    const y = this.randomNumbersService.getRandomNumber(1, 12);
+    const validTables = this.selectedTables.filter((t) => t.selected);
+    const index = this.randomNumbersService.getRandomNumber(0, validTables.length - 1);
+    const y = validTables[index].table;
+
+    // Ensure the next question is different
+    const currentX = (this.currentQuestion && this.currentQuestion.x) || 0;
+    let x = currentX;
+    while (x == currentX) {
+      x = this.randomNumbersService.getRandomNumber(1, 12);
+    }
+
     return { x, y, startTime: Date.now(), answers: [], endTime: 0, answered: false, answeredCorrectly: false };
   }
 }
