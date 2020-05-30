@@ -7,11 +7,12 @@
 .answers {
   display: flex;
   width: 50rem;
+  margin: auto;
 }
 
 button {
   font-size: 4rem;
-  width: 12rem;  /* Or whatever */
-  height: 8rem; /* Or whatever */
-  margin: auto;  /* Magic! */
+  width: 12rem;
+  height: 8rem;
+  margin: auto;
 }
