@@ -19,10 +19,16 @@ export class TableSelectionService {
     this.selected$ = this.selectedSubject.asObservable();
   }
 
-  toggle(item: TableSelection): void {
-    this.selected = this.selected.map((current) =>
-      current.table === item.table ? { ...item, selected: !item.selected } : current
-    );
+  toggle(selectedTable: TableSelection): void {
+    const toggledTable = { ...selectedTable, selected: !selectedTable.selected };
+    const exchange = (current: TableSelection) => (current.table === toggledTable.table ? toggledTable : current);
+    this.selected = this.selected.map(exchange);
     this.selectedSubject.next(this.selected);
+
+    // reselect item if it was the last selected item
+    if (this.selected.every((t) => t.selected === false)) {
+      // use set timeout to ensure toggle back occurs after change
+      setTimeout(() => this.toggle(toggledTable));
+    }
   }
 }
