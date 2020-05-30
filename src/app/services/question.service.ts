@@ -7,7 +7,6 @@ import { RandomNumbersService } from './random-numbers.service';
 import { TableSelectionService } from './table-selection.service';
 import { TableSelection } from '../models/table-selection.model';
 import { tap } from 'rxjs/operators';
-import { EmailValidator } from '@angular/forms';
 
 const defaultQuestions = 20;
 
