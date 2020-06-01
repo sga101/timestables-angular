@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TableChooserComponent } from './table-chooser.component';
+import { MatCardModule } from '@angular/material/card';
 
 describe('TableChooserComponent', () => {
   let component: TableChooserComponent;
@@ -8,6 +9,7 @@ describe('TableChooserComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [MatButtonToggleModule, MatCardModule],
       declarations: [TableChooserComponent]
     }).compileComponents();
   }));

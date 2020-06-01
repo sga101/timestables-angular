@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatCardModule } from '@angular/material/card';
 import { QuestionContainerComponent } from './question-container.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('QuestionContainerComponent', () => {
   let component: QuestionContainerComponent;
@@ -8,7 +9,9 @@ describe('QuestionContainerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [QuestionContainerComponent]
+      imports: [MatCardModule],
+      declarations: [QuestionContainerComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 

@@ -1,4 +1,6 @@
-<ng-container *ngIf="question.x < 10">&nbsp;</ng-container>{{ question.x }}&nbsp;×&nbsp;<ng-container
-  *ngIf="question.y < 10"
-  >&nbsp;</ng-container
->{{ question.y }}
+<ng-container *ngIf="question">
+  <ng-container *ngIf="question.x < 10">&nbsp;</ng-container>{{ question.x }}&nbsp;×&nbsp;<ng-container
+    *ngIf="question.y < 10"
+    >&nbsp;</ng-container
+  >{{ question.y }}
+</ng-container>

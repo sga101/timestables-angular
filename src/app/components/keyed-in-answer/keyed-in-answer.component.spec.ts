@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { AnswerFeedbackComponent } from '../answer-feedback/answer-feedback.component';
 import { KeyedInAnswerComponent } from './keyed-in-answer.component';
 
 describe('KeyedInAnswerComponent', () => {
@@ -8,7 +9,8 @@ describe('KeyedInAnswerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [KeyedInAnswerComponent]
+      imports: [ReactiveFormsModule],
+      declarations: [KeyedInAnswerComponent, AnswerFeedbackComponent]
     }).compileComponents();
   }));
 
