@@ -112,7 +112,7 @@ export class QuestionService {
     // Ensure the next question is different
     const currentX = (this.currentQuestion && this.currentQuestion.x) || 0;
     let x = currentX;
-    while (x == currentX) {
+    while (x === currentX) {
       x = this.randomNumbersService.getRandomNumber(1, 12);
     }
 

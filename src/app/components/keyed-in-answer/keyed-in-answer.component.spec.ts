@@ -8,9 +8,8 @@ describe('KeyedInAnswerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ KeyedInAnswerComponent ]
-    })
-    .compileComponents();
+      declarations: [KeyedInAnswerComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
