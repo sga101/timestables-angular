@@ -5,6 +5,7 @@ import { TableSummary } from 'src/app/components/summary/summary.component';
 import { Question } from 'src/app/models/question.model';
 import { Results } from 'src/app/models/results.model';
 import { TableSelection } from 'src/app/models/table-selection.model';
+import { GameService } from 'src/app/services/game.service';
 import { HistoryService } from 'src/app/services/history.service';
 import { Choices, MultiChoiceAnswersService } from 'src/app/services/multi-choice-answers.service';
 import { QuestionService } from 'src/app/services/question.service';
@@ -33,7 +34,8 @@ export class QuestionContainerComponent implements OnInit {
     private readonly summaryService: SummaryService,
     private readonly resultsService: ResultsService,
     private readonly choicesService: MultiChoiceAnswersService,
-    private readonly selectedTablesService: TableSelectionService
+    private readonly selectedTablesService: TableSelectionService,
+    private readonly gameService: GameService
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +52,6 @@ export class QuestionContainerComponent implements OnInit {
   }
 
   startAgain(): void {
-    this.questionService.reset();
+    this.gameService.reset();
   }
 }
