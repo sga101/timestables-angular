@@ -22,6 +22,7 @@ import { TableChooserComponent } from './components/table-chooser/table-chooser.
 import { TimerComponent } from './components/timer/timer.component';
 import { QuestionContainerComponent } from './containers/question-container/question-container.component';
 import { AutoFocusDirective } from './focus.directive';
+import { SetupGameComponent } from './components/setup-game/setup-game.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AutoFocusDirective } from './focus.directive';
     MultipleChoicesAnswersComponent,
     KeyedInAnswerComponent,
     AnswerFeedbackComponent,
-    TableChooserComponent
+    TableChooserComponent,
+    SetupGameComponent
   ],
   imports: [
     BrowserModule,

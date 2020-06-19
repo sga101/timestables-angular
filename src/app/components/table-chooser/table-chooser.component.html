@@ -1,7 +1,16 @@
 <mat-card [class.mat-elevation-z0]>
   <mat-card-title>Choose tables to practice</mat-card-title>
-
-  <button mat-raised-button *ngFor="let item of selected; index as i; trackBy: trackBy" (click)="toggled(item)"  [color]="item.selected ? 'primary': ''" [ngClass]="{selected: item.selected}">
-    {{ i + 1 }}
-  </button>
+  <mat-card-content>
+    <div class="buttons-container">
+      <button
+        mat-raised-button
+        *ngFor="let item of selected; index as i; trackBy: trackBy"
+        (click)="toggled(item)"
+        [color]="item.selected ? 'primary' : ''"
+        [ngClass]="{ selected: item.selected }"
+      >
+        {{ i + 1 }}
+      </button>
+    </div>
+  </mat-card-content>
 </mat-card>

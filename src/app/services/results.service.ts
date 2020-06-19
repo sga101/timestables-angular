@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Question } from '../models/question.model';
 import { Results } from '../models/results.model';
@@ -10,11 +10,11 @@ import { HistoryService } from './history.service';
   providedIn: 'root'
 })
 export class ResultsService {
-  private resultsSubject: Subject<Results>;
+  private resultsSubject: BehaviorSubject<Results>;
   results$: Observable<Results>;
 
   constructor(private calculationService: CalculationsService, private historyService: HistoryService) {
-    this.resultsSubject = new Subject<Results>();
+    this.resultsSubject = new BehaviorSubject<Results>(null);
     this.results$ = this.resultsSubject.asObservable();
   }
 
@@ -67,9 +67,5 @@ export class ResultsService {
       starRating: 5
     };
     this.resultsSubject.next(results);
-  }
-
-  reset(): void {
-    this.resultsSubject.next(null);
   }
 }

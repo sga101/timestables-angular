@@ -19,7 +19,6 @@ export class QuestionService {
     private tableSelectionService: TableSelectionService
   ) {
     this.tableSelectionService.selected$.pipe(tap((selected) => (this.selectedTables = selected))).subscribe();
-    this.currentQuestion = this.generateQuestion();
     this.questionSubject = new BehaviorSubject<Question>(this.currentQuestion);
     this.questions$ = this.questionSubject.asObservable();
   }

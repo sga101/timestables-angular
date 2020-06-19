@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Results } from 'src/app/models/results.model';
 
 @Component({
@@ -13,5 +13,10 @@ export class ResultsComponent {
   @Output() startAgainClicked = new EventEmitter<void>();
   startAgain(): void {
     this.startAgainClicked.emit();
+  }
+
+  @Output() changeSettingsClicked = new EventEmitter<void>();
+  changeSettings(): void {
+    this.changeSettingsClicked.emit();
   }
 }

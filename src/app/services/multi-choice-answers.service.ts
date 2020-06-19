@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { QuestionService } from './question.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { RandomNumbersService } from './random-numbers.service';
 import { filter } from 'rxjs/operators';
+import { QuestionService } from './question.service';
+import { RandomNumbersService } from './random-numbers.service';
 
 export type Choices = number[];
 
@@ -17,7 +17,7 @@ export class MultiChoiceAnswersService {
   constructor(private questionsService: QuestionService, private randomNumbersService: RandomNumbersService) {
     this.choicesSubject = new BehaviorSubject<Choices>([]);
     this.choices$ = this.choicesSubject.asObservable();
-    this.questionsService.questions$.pipe(filter((q) => q === null || q.answers.length === 0)).subscribe((q) => {
+    this.questionsService.questions$.pipe(filter((q) => !q || q.answers.length === 0)).subscribe((q) => {
       const choices: Choices = [];
       if (q) {
         choices.push(q.x * q.y);

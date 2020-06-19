@@ -1,21 +1,17 @@
-<app-table-chooser [selected]="selectedTables$ | async"></app-table-chooser>
-
-<mat-card [class.mat-elevation-z0]>
+<mat-card [class.mat-elevation-z0] *ngIf="questionsVisible$ | async">
   <mat-card-title>Questions</mat-card-title>
-  <mat-slide-toggle #modeToggle color="primary" [checked]="true">Multiple Choice</mat-slide-toggle>
-  <app-keyed-in-answer
-    *ngIf="!  modeToggle.checked"
-    [question]="question$ | async"
-    (answeredQuestion)="answeredQuestion($event)"
-  >
-  </app-keyed-in-answer>
   <app-multiple-choices-answers
-    *ngIf="modeToggle.checked"
+    *ngIf="isMultiChoiceMode$ | async as isMultichoice; else keyedAnswer"
     [question]="question$ | async"
     [choices]="choices$ | async"
     (answeredQuestion)="answeredQuestion($event)"
   ></app-multiple-choices-answers>
-
-  <app-results [results]="results$ | async" (startAgainClicked)="startAgain()"></app-results>
+  <ng-template #keyedAnswer>
+    <app-keyed-in-answer [question]="question$ | async" (answeredQuestion)="answeredQuestion($event)">
+    </app-keyed-in-answer>
+  </ng-template>
 </mat-card>
-<app-summary [summaryData]="summaryData$ | async"></app-summary>
+<div *ngIf="resultsVisible$ | async">
+  <app-results [results]="results$ | async" (startAgainClicked)="startAgain()" (changeSettingsClicked)="changeSettings()"></app-results>
+  <app-summary [summaryData]="summaryData$ | async"></app-summary>
+</div>

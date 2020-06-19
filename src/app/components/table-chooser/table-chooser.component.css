@@ -1,5 +1,9 @@
+.buttons-container {
+  flex: 0 0 auto;
+  max-width: 23rem;
+}
 button {
-  width: 3em;
-  margin: 0.4em;
+  width: 3rem;
+  margin: 0.4rem;
 }
 

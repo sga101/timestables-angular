@@ -4,14 +4,12 @@ import { map } from 'rxjs/operators';
 import { TableSummary } from 'src/app/components/summary/summary.component';
 import { Question } from 'src/app/models/question.model';
 import { Results } from 'src/app/models/results.model';
-import { TableSelection } from 'src/app/models/table-selection.model';
 import { GameService } from 'src/app/services/game.service';
 import { HistoryService } from 'src/app/services/history.service';
 import { Choices, MultiChoiceAnswersService } from 'src/app/services/multi-choice-answers.service';
 import { QuestionService } from 'src/app/services/question.service';
 import { ResultsService } from 'src/app/services/results.service';
 import { SummaryService } from 'src/app/services/summary.service';
-import { TableSelectionService } from 'src/app/services/table-selection.service';
 
 @Component({
   selector: 'app-question-container',
@@ -26,7 +24,9 @@ export class QuestionContainerComponent implements OnInit {
   choices$: Observable<Choices>;
   startTime$: Observable<number>;
   results$: Observable<Results>;
-  selectedTables$: Observable<TableSelection[]>;
+  isMultiChoiceMode$: Observable<boolean>;
+  questionsVisible$: Observable<boolean>;
+  resultsVisible$: Observable<boolean>;
 
   constructor(
     private readonly questionService: QuestionService,
@@ -34,7 +34,6 @@ export class QuestionContainerComponent implements OnInit {
     private readonly summaryService: SummaryService,
     private readonly resultsService: ResultsService,
     private readonly choicesService: MultiChoiceAnswersService,
-    private readonly selectedTablesService: TableSelectionService,
     private readonly gameService: GameService
   ) {}
 
@@ -45,7 +44,9 @@ export class QuestionContainerComponent implements OnInit {
     this.summaryData$ = this.summaryService.summary$;
     this.results$ = this.resultsService.results$;
     this.choices$ = this.choicesService.choices$;
-    this.selectedTables$ = this.selectedTablesService.selected$;
+    this.isMultiChoiceMode$ = this.gameService.isMultiChoice$;
+    this.questionsVisible$ = this.gameService.gameStatus$.pipe(map((s) => s === 'Playing'));
+    this.resultsVisible$ = this.gameService.gameStatus$.pipe(map((s) => s === 'Finished'));
   }
   answeredQuestion(answer: number): void {
     this.questionService.answerQuestion(answer);
@@ -53,5 +54,9 @@ export class QuestionContainerComponent implements OnInit {
 
   startAgain(): void {
     this.gameService.reset();
+  }
+
+  changeSettings(): void {
+    this.gameService.changeSettings();
   }
 }

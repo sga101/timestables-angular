@@ -1,0 +1,13 @@
+<div *ngIf="isVisible$ | async">
+  <app-table-chooser [selected]="selectedTables$ | async"></app-table-chooser>
+  <div>
+    <mat-slide-toggle
+      #modeToggle
+      color="primary"
+      [checked]="isMultiChoice$ | async"
+      (toggleChange)="multiChoiceChanged(modeToggle.checked)"
+      >Multiple Choice</mat-slide-toggle
+    >
+  </div>
+  <div><button mat-raised-button color="primary" (click)="startGame()">Start game</button></div>
+</div>
