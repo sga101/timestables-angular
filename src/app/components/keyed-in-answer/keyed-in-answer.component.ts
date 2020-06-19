@@ -22,13 +22,7 @@ export class KeyedInAnswerComponent implements OnChanges {
   @Output() answeredQuestion = new EventEmitter<number>();
 
   answerForm: FormGroup;
-
   errorMatcher = new WhenDirtyAndInvalidMatcher();
-
-  answered = false;
-  answeredCorrectly = false;
-  answerGiven = '';
-
   answer = new FormControl('', [Validators.required, Validators.min(1), Validators.max(144)]);
 
   constructor(private readonly formBuilder: FormBuilder) {
@@ -37,11 +31,9 @@ export class KeyedInAnswerComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.question && this.question) {
-      this.answered = this.question.answers.length > 0;
-      if (!this.answered) {
+      if (!this.question.answered) {
         this.answer.setValue('');
       }
-      this.answeredCorrectly = this.question.answers.filter((a) => a.correct).length > 0;
     }
   }
 

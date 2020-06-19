@@ -1,5 +1,5 @@
-<div>
-  <form [formGroup]="answerForm" *ngIf="question">
+<div *ngIf="question">
+  <form [formGroup]="answerForm">
     <label class="question">
       <app-question [question]="question"></app-question>=
       <input
@@ -10,7 +10,8 @@
         required
         autocomplete="off"
         appAutofocus
-        maxlength="3"
+        min="0"
+        max="144"
         formControlName="answer"
       />
       <button mat-raised-button color="primary" (click)="answerQuestion(answer.value)">
