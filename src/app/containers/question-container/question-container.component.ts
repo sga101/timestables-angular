@@ -4,12 +4,13 @@ import { map } from 'rxjs/operators';
 import { TableSummary } from 'src/app/components/summary/summary.component';
 import { Question } from 'src/app/models/question.model';
 import { Results } from 'src/app/models/results.model';
+import { TableSelection } from 'src/app/models/table-selection.model';
+import { HistoryService } from 'src/app/services/history.service';
+import { Choices, MultiChoiceAnswersService } from 'src/app/services/multi-choice-answers.service';
 import { QuestionService } from 'src/app/services/question.service';
 import { ResultsService } from 'src/app/services/results.service';
 import { SummaryService } from 'src/app/services/summary.service';
-import { Choices, MultiChoiceAnswersService } from 'src/app/services/multi-choice-answers.service';
 import { TableSelectionService } from 'src/app/services/table-selection.service';
-import { TableSelection } from 'src/app/models/table-selection.model';
 
 @Component({
   selector: 'app-question-container',
@@ -28,15 +29,16 @@ export class QuestionContainerComponent implements OnInit {
 
   constructor(
     private readonly questionService: QuestionService,
-    private summaryService: SummaryService,
-    private resultsService: ResultsService,
-    private choicesService: MultiChoiceAnswersService,
-    private selectedTablesService: TableSelectionService
+    private readonly historyService: HistoryService,
+    private readonly summaryService: SummaryService,
+    private readonly resultsService: ResultsService,
+    private readonly choicesService: MultiChoiceAnswersService,
+    private readonly selectedTablesService: TableSelectionService
   ) {}
 
   ngOnInit(): void {
     this.question$ = this.questionService.questions$;
-    this.questionHistory$ = this.questionService.questionHistory$;
+    this.questionHistory$ = this.historyService.questionHistory$;
     this.startTime$ = this.question$.pipe(map((q) => q.startTime));
     this.summaryData$ = this.summaryService.summary$;
     this.results$ = this.resultsService.results$;

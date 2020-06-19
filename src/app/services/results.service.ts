@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import { Question } from '../models/question.model';
 import { Results } from '../models/results.model';
 import { CalculationsService } from './calculations.service';
+import { HistoryService } from './history.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +13,18 @@ export class ResultsService {
   private resultsSubject: Subject<Results>;
   results$: Observable<Results>;
 
-  constructor(private calculationService: CalculationsService) {
+  constructor(private calculationService: CalculationsService, private historyService: HistoryService) {
     this.resultsSubject = new Subject<Results>();
     this.results$ = this.resultsSubject.asObservable();
+  }
+
+  publishResults(): void {
+    this.historyService.questionHistory$
+      .pipe(
+        take(1),
+        map((q) => this.buildResults(q))
+      )
+      .subscribe();
   }
 
   buildResults(questions: Question[]): void {

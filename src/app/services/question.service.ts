@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
-import { Question } from '../models/question.model';
-import { ResultsService } from './results.service';
-import { TimerService } from './timer.service';
-import { RandomNumbersService } from './random-numbers.service';
-import { TableSelectionService } from './table-selection.service';
-import { TableSelection } from '../models/table-selection.model';
 import { tap } from 'rxjs/operators';
+import { Question } from '../models/question.model';
+import { TableSelection } from '../models/table-selection.model';
+import { HistoryService } from './history.service';
+import { RandomNumbersService } from './random-numbers.service';
+import { ResultsService } from './results.service';
+import { TableSelectionService } from './table-selection.service';
+import { TimerService } from './timer.service';
 
-const defaultQuestions = 20;
+const defaultQuestions = 2;
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +21,13 @@ export class QuestionService {
     private timerService: TimerService,
     private resultsService: ResultsService,
     private randomNumbersService: RandomNumbersService,
-    private tableSelectionService: TableSelectionService
+    private tableSelectionService: TableSelectionService,
+    private historyService: HistoryService
   ) {
     this.tableSelectionService.selected$.pipe(tap((selected) => (this.selectedTables = selected))).subscribe();
     this.currentQuestion = this.generateQuestion();
     this.questionSubject = new BehaviorSubject<Question>(this.currentQuestion);
-    this.questionHistorySubject = new BehaviorSubject<Question[]>(this.questionHistory);
     this.questions$ = this.questionSubject.asObservable();
-    this.questionHistory$ = this.questionHistorySubject.asObservable();
     this.remainingSubject = new BehaviorSubject(defaultQuestions);
     this.remaining$ = this.remainingSubject.asObservable();
     this.reset(defaultQuestions);
@@ -35,20 +35,16 @@ export class QuestionService {
 
   private questionSubject: BehaviorSubject<Question>;
   private currentQuestion: Question;
-  private questionHistory: Question[] = [];
-  private questionHistorySubject: BehaviorSubject<Question[]>;
   private totalQuestions: number;
   private remainingSubject: BehaviorSubject<number>;
+  private questionsAnswered: number;
 
   questions$: Observable<Question>;
-
-  questionHistory$: Observable<Question[]>;
-
   remaining$: Observable<number>;
 
   reset(questionsToAsk: number = defaultQuestions): void {
+    this.questionsAnswered = 0;
     this.totalQuestions = questionsToAsk;
-    this.questionHistory = [];
     this.nextQuestion();
     this.resultsService.reset();
     this.timerService.reset();
@@ -56,12 +52,11 @@ export class QuestionService {
 
   nextQuestion(previousQuestion: Question = null): void {
     if (previousQuestion) {
-      this.questionHistory = this.questionHistory.concat(previousQuestion);
-      this.questionHistorySubject.next(this.questionHistory);
+      this.historyService.addQuestion(previousQuestion);
     }
     this.currentQuestion = this.generateQuestion();
     this.questionSubject.next(this.currentQuestion);
-    this.remainingSubject.next(this.totalQuestions - this.questionHistory.length);
+    this.remainingSubject.next(this.totalQuestions - this.questionsAnswered);
     this.timerService.startTimer();
   }
 
@@ -86,7 +81,9 @@ export class QuestionService {
     this.questionSubject.next(this.currentQuestion);
 
     if (correct) {
-      const finished = this.questionHistory.length + 1 >= this.totalQuestions;
+      this.questionsAnswered++;
+      console.log(this.questionsAnswered, this.totalQuestions);
+      const finished = this.questionsAnswered >= this.totalQuestions;
       finished ? this.endGame() : this.provideNextQuestion();
     }
   }
@@ -97,11 +94,10 @@ export class QuestionService {
 
   private endGame() {
     this.timerService.stopTimer();
-    this.questionHistory = this.questionHistory.concat(this.currentQuestion);
-    this.questionHistorySubject.next(this.questionHistory);
+    this.historyService.addQuestion(this.currentQuestion);
     this.currentQuestion = null;
     this.questionSubject.next(this.currentQuestion);
-    this.resultsService.buildResults(this.questionHistory);
+    this.resultsService.publishResults();
   }
 
   generateQuestion(): Question {
