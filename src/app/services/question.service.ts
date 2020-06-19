@@ -86,7 +86,7 @@ export class QuestionService {
     this.questionSubject.next(this.currentQuestion);
 
     if (correct) {
-      const finished = this.questionHistory.length + 1 === this.totalQuestions;
+      const finished = this.questionHistory.length + 1 >= this.totalQuestions;
       finished ? this.endGame() : this.provideNextQuestion();
     }
   }
