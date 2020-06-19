@@ -6,7 +6,7 @@ import { HistoryService } from './history.service';
 import { QuestionService } from './question.service';
 import { ResultsService } from './results.service';
 
-const defaultQuestions = 2;
+const defaultQuestions = 20;
 
 export type GameStatus = 'Setup' | 'Playing' | 'Finished';
 @Injectable({
