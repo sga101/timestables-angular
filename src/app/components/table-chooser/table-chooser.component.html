@@ -1,13 +1,7 @@
 <mat-card [class.mat-elevation-z0]>
   <mat-card-title>Choose tables to practice</mat-card-title>
-  <mat-button-toggle-group multiple name="selectedTables" aria-label="Tables to practice">
-    <mat-button-toggle
-      *ngFor="let item of selected; index as i; trackBy: trackBy"
-      value="i + 1"
-      [checked]="item.selected"
-      (change)="toggled(item)"
-      >{{ item.table }}</mat-button-toggle
-    >
-  </mat-button-toggle-group>
+
+  <button mat-raised-button *ngFor="let item of selected; index as i; trackBy: trackBy" (click)="toggled(item)"  [color]="item.selected ? 'primary': ''" [ngClass]="{selected: item.selected}">
+    {{ i + 1 }}
+  </button>
 </mat-card>
-  

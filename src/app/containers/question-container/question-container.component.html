@@ -1,24 +1,21 @@
-
-<app-table-chooser [selected] = "selectedTables$ | async"></app-table-chooser>
+<app-table-chooser [selected]="selectedTables$ | async"></app-table-chooser>
 
 <mat-card [class.mat-elevation-z0]>
   <mat-card-title>Questions</mat-card-title>
-  <div class="cardList">
-    <mat-tab-group>
-      <mat-tab label="Type in your answer">
-        <app-keyed-in-answer [question]="question$ | async" (answeredQuestion)="answeredQuestion($event)">
-        </app-keyed-in-answer>
-      </mat-tab>
-      <mat-tab label="Multiple choice">
-        <app-multiple-choices-answers
-          [question]="question$ | async"
-          [choices]="choices$ | async"
-          (answeredQuestion)="answeredQuestion($event)"
-        ></app-multiple-choices-answers>
-      </mat-tab>
-    </mat-tab-group>
+  <mat-slide-toggle #modeToggle color="primary" [checked]="true">Multiple Choice</mat-slide-toggle>
+  <app-keyed-in-answer
+    *ngIf="!  modeToggle.checked"
+    [question]="question$ | async"
+    (answeredQuestion)="answeredQuestion($event)"
+  >
+  </app-keyed-in-answer>
+  <app-multiple-choices-answers
+    *ngIf="modeToggle.checked"
+    [question]="question$ | async"
+    [choices]="choices$ | async"
+    (answeredQuestion)="answeredQuestion($event)"
+  ></app-multiple-choices-answers>
 
-  </div>
   <app-results [results]="results$ | async" (startAgainClicked)="startAgain()"></app-results>
 </mat-card>
 <app-summary [summaryData]="summaryData$ | async"></app-summary>
