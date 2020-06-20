@@ -24,11 +24,17 @@ export class SetupGameComponent {
     this.isVisible$ = this.gameService.gameStatus$.pipe(map((s) => s === 'Setup'));
   }
 
+  questionsToAnswer = '20';
+
   multiChoiceChanged(value: boolean): void {
     this.gameService.setMultiChoiceMode(!value);
   }
 
+  questionsToAnswerChanged(value: number): void {
+    this.gameService.setMultiChoiceMode(!value);
+  }
+
   startGame(): void {
-    this.gameService.reset();
+    this.gameService.reset(parseInt(this.questionsToAnswer, 10));
   }
 }
