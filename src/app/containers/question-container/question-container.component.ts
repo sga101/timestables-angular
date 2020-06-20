@@ -27,6 +27,8 @@ export class QuestionContainerComponent implements OnInit {
   isMultiChoiceMode$: Observable<boolean>;
   questionsVisible$: Observable<boolean>;
   resultsVisible$: Observable<boolean>;
+  currentQuestion$: Observable<number>;
+  totalQuestions$: Observable<number>;
 
   constructor(
     private readonly questionService: QuestionService,
@@ -47,6 +49,8 @@ export class QuestionContainerComponent implements OnInit {
     this.isMultiChoiceMode$ = this.gameService.isMultiChoice$;
     this.questionsVisible$ = this.gameService.gameStatus$.pipe(map((s) => s === 'Playing'));
     this.resultsVisible$ = this.gameService.gameStatus$.pipe(map((s) => s === 'Finished'));
+    this.currentQuestion$ = this.gameService.progress$.pipe(map((p) => p.currentQuestion));
+    this.totalQuestions$ = this.gameService.progress$.pipe(map((p) => p.totalQuestions));
   }
   answeredQuestion(answer: number): void {
     this.questionService.answerQuestion(answer);

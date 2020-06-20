@@ -6,14 +6,19 @@ import { HistoryService } from './history.service';
 import { QuestionService } from './question.service';
 import { ResultsService } from './results.service';
 
-const defaultQuestions = 20;
+const defaultQuestions = 2;
+
+export interface Progress {
+  currentQuestion: number;
+  totalQuestions: number;
+}
 
 export type GameStatus = 'Setup' | 'Playing' | 'Finished';
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  remaining$: Observable<number>;
+  progress$: Observable<Progress>;
   isMultiChoice$: Observable<boolean>;
   gameStatus$: Observable<GameStatus>;
 
@@ -22,7 +27,7 @@ export class GameService {
 
   private questionsAnswered: number;
   private totalQuestions: number;
-  private remainingSubject: BehaviorSubject<number>;
+  private progressSubject: BehaviorSubject<Progress>;
 
   private isMultiChoice = true;
   private isMultiChoiceSubject: BehaviorSubject<boolean>;
@@ -38,8 +43,8 @@ export class GameService {
     this.isMultiChoiceSubject = new BehaviorSubject(this.isMultiChoice);
     this.isMultiChoice$ = this.isMultiChoiceSubject.asObservable();
 
-    this.remainingSubject = new BehaviorSubject(defaultQuestions);
-    this.remaining$ = this.remainingSubject.asObservable();
+    this.progressSubject = new BehaviorSubject({ currentQuestion: 1, totalQuestions: defaultQuestions });
+    this.progress$ = this.progressSubject.asObservable();
 
     this.questionsService.questions$
       .pipe(
@@ -54,17 +59,23 @@ export class GameService {
       this.questionsAnswered++;
       this.historyService.addQuestion(q);
       const remainingQuestions = this.totalQuestions - this.questionsAnswered;
-      this.remainingSubject.next(remainingQuestions);
       if (remainingQuestions > 0) {
-        this.provideNextQuestion();
+        this.scheduleNextQuestion();
       } else {
         this.endGame();
       }
     }
   }
 
-  private provideNextQuestion() {
-    timer(500).subscribe(() => this.questionsService.nextQuestion());
+  private scheduleNextQuestion() {
+    timer(500).subscribe(() => {
+      this.nextQuestion();
+    });
+  }
+
+  private nextQuestion() {
+    this.questionsService.nextQuestion();
+    this.progressSubject.next({ currentQuestion: this.questionsAnswered + 1, totalQuestions: this.totalQuestions });
   }
 
   setMultiChoiceMode(isMultiChoice: boolean): void {
@@ -83,7 +94,7 @@ export class GameService {
     this.questionsAnswered = 0;
     this.totalQuestions = questionsToAsk;
     this.historyService.archive();
-    this.questionsService.nextQuestion();
+    this.nextQuestion();
   }
 
   private setGameStatus(status: GameStatus) {

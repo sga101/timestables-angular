@@ -1,5 +1,5 @@
 <mat-card [class.mat-elevation-z0] *ngIf="questionsVisible$ | async">
-  <mat-card-title>Questions</mat-card-title>
+  <mat-card-title>Question {{currentQuestion$ | async}} of {{totalQuestions$ | async}} </mat-card-title>
   <app-multiple-choices-answers
     *ngIf="isMultiChoiceMode$ | async as isMultichoice; else keyedAnswer"
     [question]="question$ | async"
