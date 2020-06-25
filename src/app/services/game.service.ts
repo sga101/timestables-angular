@@ -6,8 +6,6 @@ import { HistoryService } from './history.service';
 import { QuestionService } from './question.service';
 import { ResultsService } from './results.service';
 
-const defaultQuestions = 2;
-
 export interface Progress {
   currentQuestion: number;
   totalQuestions: number;
@@ -37,13 +35,15 @@ export class GameService {
     private resultsService: ResultsService,
     private historyService: HistoryService
   ) {
+    this.totalQuestions = 20;
+
     this.gameStatusSubject = new BehaviorSubject(this.gameStatus);
     this.gameStatus$ = this.gameStatusSubject.asObservable();
 
     this.isMultiChoiceSubject = new BehaviorSubject(this.isMultiChoice);
     this.isMultiChoice$ = this.isMultiChoiceSubject.asObservable();
 
-    this.progressSubject = new BehaviorSubject({ currentQuestion: 1, totalQuestions: defaultQuestions });
+    this.progressSubject = new BehaviorSubject({ currentQuestion: 1, totalQuestions: this.totalQuestions });
     this.progress$ = this.progressSubject.asObservable();
 
     this.questionsService.questions$
@@ -89,10 +89,12 @@ export class GameService {
     this.setGameStatus('Setup');
   }
 
-  reset(questionsToAsk: number = defaultQuestions): void {
+  reset(questionsToAsk?: number): void {
     this.setGameStatus('Playing');
     this.questionsAnswered = 0;
-    this.totalQuestions = questionsToAsk;
+    if (questionsToAsk) {
+      this.totalQuestions = questionsToAsk;
+    }
     this.historyService.archive();
     this.nextQuestion();
   }
