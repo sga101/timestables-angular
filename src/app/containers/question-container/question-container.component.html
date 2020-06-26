@@ -7,7 +7,7 @@
     (answeredQuestion)="answeredQuestion($event)"
   ></app-multiple-choices-answers>
   <ng-template #keyedAnswer>
-    <app-keyed-in-answer [question]="question$ | async" (answeredQuestion)="answeredQuestion($event)">
+    <app-keyed-in-answer [question]="question$ | async" [answerText]="answerText$ | async"  (answeredQuestion)="answeredQuestion($event)">
     </app-keyed-in-answer>
   </ng-template>
 </mat-card>

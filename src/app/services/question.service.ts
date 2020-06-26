@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { Question } from '../models/question.model';
 import { TableSelection } from '../models/table-selection.model';
 import { RandomNumbersService } from './random-numbers.service';
@@ -21,13 +21,14 @@ export class QuestionService {
     this.tableSelectionService.selected$.pipe(tap((selected) => (this.selectedTables = selected))).subscribe();
     this.questionSubject = new BehaviorSubject<Question>(this.currentQuestion);
     this.questions$ = this.questionSubject.asObservable();
+    this.answerText$ = this.questions$.pipe(map((q) => q.currentAnswer));
   }
 
   private questionSubject: BehaviorSubject<Question>;
   private currentQuestion: Question;
 
   questions$: Observable<Question>;
-  remaining$: Observable<number>;
+  answerText$: Observable<string>;
 
   nextQuestion(): void {
     this.update(this.generateQuestion());
@@ -39,11 +40,15 @@ export class QuestionService {
   }
 
   answerQuestion(answer: number): void {
+    if(this.currentQuestion.answeredCorrectly) {
+      return;
+    }
     const correctAnswer = this.currentQuestion.x * this.currentQuestion.y;
     const correct = answer === correctAnswer;
     const timeTaken = Date.now() - this.currentQuestion.startTime;
     const answeredQuestion: Question = {
       ...this.currentQuestion,
+      currentAnswer: answer.toString(),
       answers: this.currentQuestion.answers.concat({
         answer,
         correct,
@@ -74,6 +79,15 @@ export class QuestionService {
       x = this.randomNumbersService.getRandomNumber(1, 12);
     }
 
-    return { x, y, startTime: Date.now(), answers: [], endTime: 0, answered: false, answeredCorrectly: false };
+    return {
+      x,
+      y,
+      startTime: Date.now(),
+      answers: [],
+      endTime: 0,
+      answered: false,
+      answeredCorrectly: false,
+      currentAnswer: ''
+    };
   }
 }

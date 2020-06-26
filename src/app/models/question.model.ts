@@ -6,6 +6,7 @@ export interface Question {
   answers: Answer[];
   answered: boolean;
   answeredCorrectly: boolean;
+  currentAnswer: string;
 }
 
 export interface Answer {

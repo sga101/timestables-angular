@@ -29,6 +29,7 @@ export class QuestionContainerComponent implements OnInit {
   resultsVisible$: Observable<boolean>;
   currentQuestion$: Observable<number>;
   totalQuestions$: Observable<number>;
+  answerText$: Observable<string>;
 
   constructor(
     private readonly questionService: QuestionService,
@@ -51,6 +52,7 @@ export class QuestionContainerComponent implements OnInit {
     this.resultsVisible$ = this.gameService.gameStatus$.pipe(map((s) => s === 'Finished'));
     this.currentQuestion$ = this.gameService.progress$.pipe(map((p) => p.currentQuestion));
     this.totalQuestions$ = this.gameService.progress$.pipe(map((p) => p.totalQuestions));
+    this.answerText$ = this.questionService.answerText$;
   }
   answeredQuestion(answer: number): void {
     this.questionService.answerQuestion(answer);

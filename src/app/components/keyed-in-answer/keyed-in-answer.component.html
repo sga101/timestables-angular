@@ -1,5 +1,5 @@
 <div *ngIf="question">
-  <form [formGroup]="answerForm">
+  <form (ngSubmit)="answerQuestion()" #form="ngForm">
     <label class="question">
       <app-question [question]="question"></app-question>=
       <input
@@ -12,9 +12,12 @@
         appAutofocus
         min="0"
         max="144"
-        formControlName="answer"
+        [(ngModel)]="answerText"
+        name="answerText"
       />
-      <button mat-raised-button color="primary" (click)="answerQuestion(answer.value)">
+
+      <button mat-raised-button color="primary"  type="submit" [disabled]="!form.form.valid">
+
         Submit
       </button>
     </label>

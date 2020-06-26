@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
-import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,12 +15,12 @@ import { KeyedInAnswerComponent } from './components/keyed-in-answer/keyed-in-an
 import { MultipleChoicesAnswersComponent } from './components/multiple-choices-answers/multiple-choices-answers.component';
 import { QuestionComponent } from './components/question/question.component';
 import { ResultsComponent } from './components/results/results.component';
+import { SetupGameComponent } from './components/setup-game/setup-game.component';
 import { SummaryComponent } from './components/summary/summary.component';
 import { TableChooserComponent } from './components/table-chooser/table-chooser.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { QuestionContainerComponent } from './containers/question-container/question-container.component';
 import { AutoFocusDirective } from './focus.directive';
-import { SetupGameComponent } from './components/setup-game/setup-game.component';
 
 @NgModule({
   declarations: [
@@ -44,13 +42,10 @@ import { SetupGameComponent } from './components/setup-game/setup-game.component
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatFormFieldModule,
     MatTableModule,
-    MatTabsModule,
     MatSlideToggleModule,
     MatRadioModule
   ],
