@@ -1,14 +1,5 @@
-.question {
+div {
   font-size: 4rem;
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
   font-family: monospace;
+  text-align: center;
 }
-
-span {
-  margin-left: 10px;
-  margin-top:0;
-  margin-bottom: 0;
-  font-size: 52px;
-}
-

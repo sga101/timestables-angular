@@ -1,6 +1,5 @@
-span {
-  margin: 10px;
-  font-size: 52px;
+div {
+  font-size: 36px;
   text-align: center;
 }
 .good {
@@ -12,4 +11,3 @@ span {
   color: red;
   font-weight: 600;
 }
-

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -44,7 +43,6 @@ import { AutoFocusDirective } from './focus.directive';
     FormsModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule,
     MatTableModule,
     MatSlideToggleModule,
     MatRadioModule

@@ -1,16 +1,12 @@
-div div {
-  margin: 1rem;
-}
-
-label {
-  margin: 1rem;
-}
 .mat-radio-group {
   display: flex;
   flex-direction: column;
-  margin: 1rem;
+}
+
+div.group {
+  margin-top: 1.5rem;
 }
 
 .mat-radio-button {
-  margin: 5px;
+  margin-top: 0.4rem;
 }

@@ -32,13 +32,12 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
 
 h1 {
   font-size: 1.5rem;
-  margin-left: 1rem;
   margin-block-start: 0.4rem;
   margin-block-end: 0.4rem;
 }
 
 h2 {
-  margin-left: 1rem;
+  font-size: 1.2rem;
   margin-block-start: 0.4rem;
   margin-block-end: 0.4rem;
 }

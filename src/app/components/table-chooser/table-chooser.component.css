@@ -1,9 +1,13 @@
 .buttons-container {
-  flex: 0 0 auto;
-  max-width: 23rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 1 auto;
+  justify-content: space-between;
+  align-content: space-between;
+  height: 8rem;
+  max-width: 27rem;
 }
 button {
-  width: 3rem;
-  margin: 0.4rem;
+  width: calc(25% - 15px);
+  height: calc(33% - 10px);
 }
-

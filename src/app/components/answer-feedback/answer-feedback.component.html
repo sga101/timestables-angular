@@ -1,5 +1,5 @@
-<span *ngIf="question;else placeholder">
-  <ng-container *ngIf="question.answered">
+<div *ngIf="question">
+  <ng-container *ngIf="question.answered; else placeholder">
     <ng-container *ngIf="question.answeredCorrectly; else wrong">
       <span class="good">Correct</span>
     </ng-container>
@@ -7,5 +7,5 @@
       <span class="bad">Try again</span>
     </ng-template>
   </ng-container>
-</span>
-<ng-template #placeholder><span>&nbsp;</span></ng-template>
+  <ng-template #placeholder>&nbsp;</ng-template>
+</div>

@@ -1,10 +1,12 @@
 <div class="choices" *ngIf="question">
   <div><app-question [question]="question"></app-question></div>
-
   <app-answer-feedback [question]="question"></app-answer-feedback>
-  <div class="answers">
-    <button mat-raised-button color="primary" *ngFor="let choice of choices" (click)="answerQuestion(choice)">
-      {{ choice }}</button
-    ><br />
+  <div class="answers flex-container">
+    <div class="flex-cell" *ngFor="let choice of choices">
+      <button mat-raised-button color="primary" (click)="answerQuestion(choice)" class="flex-item">
+        {{ choice }}
+      </button>
+    </div>
   </div>
+  <br />
 </div>

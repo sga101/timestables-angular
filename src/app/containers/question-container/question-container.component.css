@@ -1,1 +1,15 @@
-  
+div {
+  margin: 0 auto;
+}
+
+@media only screen {
+  div {
+    max-width: 30rem;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  div {
+    max-width: 60rem;
+  }
+}
