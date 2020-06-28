@@ -1,5 +1,6 @@
 .mat-raised-button {
   font-family: monospace;
+  font-size: 3.6rem;
 }
 
 .flex-container {
@@ -9,39 +10,33 @@
   flex-wrap: wrap;
 }
 
-@media only screen {
-  .flex-cell {
-    flex: 0 0 50%;
-  }
-  .mat-raised-button {
-    font-size: 3rem;
-  }
-}
-
-@media only screen and (max-height: 500px) {
-  .flex-cell {
-    flex: 0 0 25%;
-  }
-  .mat-raised-button {
-    font-size: 4rem;
-  }
-}
-
-@media only screen and (min-width: 992px) and (min-height: 500px) {
-  .flex-cell {
-    flex: 0 0 25%;
-  }
-  .mat-raised-button {
-    font-size: 4rem;
-  }
-}
-
 .flex-cell {
+  flex: 0 0 50%;
   display: flex;
   justify-content: center;
   align-items: stretch;
   padding: 0.5rem;
   box-sizing: border-box;
+}
+
+/* Minimum aspect ratio */
+@media only screen and (min-aspect-ratio: 4/3) {
+  .flex-cell {
+    flex: 0 0 25%;
+  }
+  .mat-raised-button {
+    font-size: 3.6em;
+  }
+}
+
+/* Minimum aspect ratio */
+@media only screen and (min-aspect-ratio: 4/3) and (max-height: 400px){
+  .flex-cell {
+    flex: 0 0 25%;
+  }
+  .mat-raised-button {
+    font-size: 2.5em;
+  }
 }
 
 .flex-cell:before {

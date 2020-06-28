@@ -1,15 +1,14 @@
 div {
   margin: 0 auto;
+  max-width: 30rem;
 }
 
-@media only screen {
-  div {
-    max-width: 30rem;
-  }
-}
-
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 992px) and (min-aspect-ratio: 4/3)  {
   div {
     max-width: 60rem;
   }
+}
+/* Minimum aspect ratio */
+@media only screen and (min-aspect-ratio: 4/3) {
+
 }

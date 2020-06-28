@@ -1,7 +1,13 @@
 .app {
   position: fixed;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  padding: 10px;  
+}
+@media only screen and (max-height: 500px) {
+  .app {
+    overflow: auto;
+  }
 }

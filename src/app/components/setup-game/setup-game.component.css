@@ -10,3 +10,9 @@ div.group {
 .mat-radio-button {
   margin-top: 0.4rem;
 }
+
+.flex-container {
+  display: flex;
+  flex: 1 0 auto;
+  flex-wrap: wrap;
+}
