@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Question } from '../models/question.model';
 import { TableSelection } from '../models/table-selection.model';
 import { RandomNumbersService } from './random-numbers.service';
@@ -12,13 +12,15 @@ import { TimerService } from './timer.service';
 })
 export class QuestionService {
   selectedTables: TableSelection[];
+  questions$: Observable<Question>;
+  answerText$: Observable<string>;
 
   constructor(
     private timerService: TimerService,
     private randomNumbersService: RandomNumbersService,
     private tableSelectionService: TableSelectionService
   ) {
-    this.tableSelectionService.selected$.pipe(tap((selected) => (this.selectedTables = selected))).subscribe();
+    this.tableSelectionService.selected$.subscribe({ next: (selected) => (this.selectedTables = selected) });
     this.questionSubject = new BehaviorSubject<Question>(this.currentQuestion);
     this.questions$ = this.questionSubject.asObservable();
     this.answerText$ = this.questions$.pipe(map((q) => q.currentAnswer));
@@ -26,9 +28,6 @@ export class QuestionService {
 
   private questionSubject: BehaviorSubject<Question>;
   private currentQuestion: Question;
-
-  questions$: Observable<Question>;
-  answerText$: Observable<string>;
 
   nextQuestion(): void {
     this.update(this.generateQuestion());
@@ -40,54 +39,67 @@ export class QuestionService {
   }
 
   answerQuestion(answer: number): void {
-    if(this.currentQuestion.answeredCorrectly) {
+    if (this.currentQuestion.answeredCorrectly) {
       return;
     }
-    const correctAnswer = this.currentQuestion.x * this.currentQuestion.y;
-    const correct = answer === correctAnswer;
-    const timeTaken = Date.now() - this.currentQuestion.startTime;
-    const answeredQuestion: Question = {
-      ...this.currentQuestion,
-      currentAnswer: answer.toString(),
-      answers: this.currentQuestion.answers.concat({
-        answer,
-        correct,
-        timeTaken
-      }),
-      answered: true,
-      answeredCorrectly: correct,
-      endTime: Date.now()
-    };
+    const answeredQuestion: Question = updateModel(this.currentQuestion, answer, Date.now());
 
     this.update(answeredQuestion);
   }
+
+  generateQuestion = (): Question =>
+    generateNextQuestion(this.currentQuestion, this.selectedTables, Date.now(), this.randomNumbersService);
 
   private update(question: Question): void {
     this.currentQuestion = question;
     this.questionSubject.next(this.currentQuestion);
   }
+}
 
-  generateQuestion(): Question {
-    const validTables = this.selectedTables.filter((t) => t.selected);
-    const index = this.randomNumbersService.getRandomNumber(0, validTables.length - 1);
-    const y = validTables[index].table;
+export function updateModel(question: Question, answer: number, dateAnswered: number): Question {
+  const correctAnswer = question.x * question.y;
+  const correct = answer === correctAnswer;
+  const timeTaken = dateAnswered - question.startTime;
+  const answeredQuestion: Question = {
+    ...question,
+    currentAnswer: answer.toString(),
+    answers: question.answers.concat({
+      answer,
+      correct,
+      timeTaken
+    }),
+    answered: true,
+    answeredCorrectly: correct,
+    endTime: dateAnswered
+  };
+  return answeredQuestion;
+}
 
-    // Ensure the next question is different
-    const currentX = (this.currentQuestion && this.currentQuestion.x) || 0;
-    let x = currentX;
-    while (x === currentX) {
-      x = this.randomNumbersService.getRandomNumber(1, 12);
-    }
+export function generateNextQuestion(
+  current: Question,
+  selectedTables: TableSelection[],
+  startTime: number,
+  randomNumbers: RandomNumbersService
+): Question {
+  const validTables = selectedTables.filter((t) => t.selected);
+  const index = randomNumbers.getRandomNumber(0, validTables.length - 1);
+  const y = validTables[index].table;
 
-    return {
-      x,
-      y,
-      startTime: Date.now(),
-      answers: [],
-      endTime: 0,
-      answered: false,
-      answeredCorrectly: false,
-      currentAnswer: ''
-    };
+  // Ensure the next question is different
+  const currentX = (current && current.x) || 0;
+  let x = currentX;
+  while (x === currentX) {
+    x = randomNumbers.getRandomNumber(1, 12);
   }
+
+  return {
+    x,
+    y,
+    startTime,
+    answers: [],
+    endTime: 0,
+    answered: false,
+    answeredCorrectly: false,
+    currentAnswer: ''
+  };
 }

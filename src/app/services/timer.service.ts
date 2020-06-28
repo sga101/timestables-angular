@@ -6,12 +6,12 @@ import { takeUntil } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TimerService {
-  initialStartTime: number;
-  startTime: number;
+  private initialStartTime: number;
+  private startTime: number;
 
-  totalTimeSubject: BehaviorSubject<string>;
-  questionTimeSubject: BehaviorSubject<string>;
-  resetSubject: Subject<boolean>;
+  private totalTimeSubject: BehaviorSubject<string>;
+  private questionTimeSubject: BehaviorSubject<string>;
+  private resetSubject: Subject<boolean>;
 
   totalTime$: Observable<string>;
   questionTime$: Observable<string>;
