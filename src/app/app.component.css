@@ -1,4 +1,8 @@
-h1 {
-  margin-left: 16px;
-  margin-top: 16px;
+.app {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 auto;
 }
+

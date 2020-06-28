@@ -1,5 +1,5 @@
-<mat-card [class.mat-elevation-z0] *ngIf="questionsVisible$ | async">
-  <mat-card-title>Question {{currentQuestion$ | async}} of {{totalQuestions$ | async}} </mat-card-title>
+<ng-container *ngIf="questionsVisible$ | async">
+  <h2>Question {{currentQuestion$ | async}} of {{totalQuestions$ | async}} </h2>
   <app-multiple-choices-answers
     *ngIf="isMultiChoiceMode$ | async as isMultichoice; else keyedAnswer"
     [question]="question$ | async"
@@ -10,7 +10,7 @@
     <app-keyed-in-answer [question]="question$ | async" [answerText]="answerText$ | async"  (answeredQuestion)="answeredQuestion($event)">
     </app-keyed-in-answer>
   </ng-template>
-</mat-card>
+</ng-container>
 <div *ngIf="resultsVisible$ | async">
   <app-results [results]="results$ | async" (startAgainClicked)="startAgain()" (changeSettingsClicked)="changeSettings()"></app-results>
   <app-summary [summaryData]="summaryData$ | async"></app-summary>

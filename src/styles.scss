@@ -29,3 +29,16 @@ $app-theme: mat-light-theme($app-primary, $app-accent);
 
 // Include the mixin
 @include mix-app-theme($app-theme);
+
+h1 {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  margin-block-start: 0.4rem;
+  margin-block-end: 0.4rem;
+}
+
+h2 {
+  margin-left: 1rem;
+  margin-block-start: 0.4rem;
+  margin-block-end: 0.4rem;
+}
