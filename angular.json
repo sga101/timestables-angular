@@ -104,7 +104,13 @@
         },
         "deploy": {
           "builder": "@angular/fire:deploy",
-          "options": {}
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "timesTables:build:production",
+            "firebaseProject": "timestablespractice",
+            "firebaseHostingSite": "timestablespractice"
+          }
         }
       }
     }
