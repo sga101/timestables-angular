@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AnswerFeedbackComponent } from '../answer-feedback/answer-feedback.component';
 import { KeyedInAnswerComponent } from './keyed-in-answer.component';
@@ -7,7 +7,7 @@ describe('KeyedInAnswerComponent', () => {
   let component: KeyedInAnswerComponent;
   let fixture: ComponentFixture<KeyedInAnswerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
       declarations: [KeyedInAnswerComponent, AnswerFeedbackComponent]
