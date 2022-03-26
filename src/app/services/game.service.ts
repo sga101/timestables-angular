@@ -19,6 +19,7 @@ export class GameService {
   progress$: Observable<Progress>;
   isMultiChoice$: Observable<boolean>;
   gameStatus$: Observable<GameStatus>;
+  questionDelay: number = 500;
 
   private gameStatus: GameStatus = 'Setup';
   private gameStatusSubject: BehaviorSubject<GameStatus>;
@@ -68,7 +69,7 @@ export class GameService {
   }
 
   private scheduleNextQuestion() {
-    timer(500).subscribe(() => {
+    timer(this.questionDelay).subscribe(() => {
       this.nextQuestion();
     });
   }
@@ -105,7 +106,7 @@ export class GameService {
   }
 
   private endGame() {
-    timer(500).subscribe(() => {
+    timer(this.questionDelay).subscribe(() => {
       this.resultsService.publishResults();
       this.setGameStatus('Finished');
     });

@@ -1,4 +1,4 @@
-import { filter, map, pairwise, take, tap } from 'rxjs';
+import { filter, map, pairwise, take } from 'rxjs';
 import { CalculationsService } from './calculations.service';
 import { GameService } from './game.service';
 import { HistoryService } from './history.service';
@@ -19,6 +19,7 @@ describe('GameService', () => {
     questionService = new QuestionService(new TimerService(), new RandomNumbersService(), new TableSelectionService());
     resultsService = new ResultsService(new CalculationsService(), historyService);
     service = new GameService(questionService, resultsService, historyService);
+    service.questionDelay = 0;
   });
 
   it('should start in setup mode', (done) => {
@@ -62,16 +63,18 @@ describe('GameService', () => {
       .pipe(
         pairwise(),
         map(([first, second]) => {
-          expect(first).toBeTruthy();
-          expect(second).toBeFalsy();
-          done();
+          try {
+            expect(first).toBeTruthy();
+            expect(second).toBeFalsy();
+            done();
+          } catch (error) {
+            done(error);
+          }
         })
       )
       .subscribe();
     service.setMultiChoiceMode(true);
     service.setMultiChoiceMode(false);
-
-    service.setMultiChoiceMode(true);
   });
 
   it('should revert to setup when changeSettings is called', (done) => {
