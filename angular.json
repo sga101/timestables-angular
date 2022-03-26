@@ -111,9 +111,21 @@
             "firebaseProject": "timestablespractice",
             "firebaseHostingSite": "timestablespractice"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "timesTables"
+  "defaultProject": "timesTables",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

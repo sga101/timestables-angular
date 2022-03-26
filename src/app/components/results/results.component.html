@@ -5,7 +5,7 @@
       You answered {{ results.totalQuestions }} questions in {{ results.totalTime / 1000 | number: '1.0-2' }} seconds
     </p>
     <p>That's {{ results.averageTime / 1000 | number: '1.0-2' }} seconds per question!</p>
-    <p *ngIf="results.wrongAnswers.length == 0">Amazing job - You got all the questions right!</p>
+    <p *ngIf="results.wrongAnswers.length === 0">Amazing job - You got all the questions right!</p>
     <button appAutofocus mat-raised-button color="primary" (click)="startAgain()">Start a new test</button>
     <button mat-flat-button color="" (click)="changeSettings()">Change settings</button>
   </div>
