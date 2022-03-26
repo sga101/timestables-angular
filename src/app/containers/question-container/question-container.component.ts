@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TableSummary } from 'src/app/components/summary/summary.component';
-import { Question } from 'src/app/models/question.model';
-import { Results } from 'src/app/models/results.model';
-import { GameService } from 'src/app/services/game.service';
-import { HistoryService } from 'src/app/services/history.service';
-import { Choices, MultiChoiceAnswersService } from 'src/app/services/multi-choice-answers.service';
-import { QuestionService } from 'src/app/services/question.service';
-import { ResultsService } from 'src/app/services/results.service';
-import { SummaryService } from 'src/app/services/summary.service';
+import { TableSummary } from '../../components/summary/summary.component';
+import { Question } from '../../models/question.model';
+import { Results } from '../../models/results.model';
+import { GameService } from '../../services/game.service';
+import { HistoryService } from '../../services/history.service';
+import { Choices, MultiChoiceAnswersService } from '../../services/multi-choice-answers.service';
+import { QuestionService } from '../../services/question.service';
+import { ResultsService } from '../../services/results.service';
+import { SummaryService } from '../../services/summary.service';
 
 @Component({
   selector: 'app-question-container',

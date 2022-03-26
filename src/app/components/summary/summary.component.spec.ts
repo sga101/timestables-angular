@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTableModule } from '@angular/material/table';
 import { SummaryComponent } from './summary.component';
 
@@ -6,12 +6,12 @@ describe('SummaryComponent', () => {
   let component: SummaryComponent;
   let fixture: ComponentFixture<SummaryComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async() => {
     TestBed.configureTestingModule({
       imports: [MatTableModule],
       declarations: [SummaryComponent]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SummaryComponent);

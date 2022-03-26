@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
@@ -11,14 +11,12 @@ describe('SetupGameComponent', () => {
   let component: SetupGameComponent;
   let fixture: ComponentFixture<SetupGameComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [SetupGameComponent, TableChooserComponent],
-        imports: [FormsModule, MatButtonModule, MatRadioModule, MatSlideToggleModule, MatTableModule]
-      }).compileComponents();
-    })
-  );
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [SetupGameComponent, TableChooserComponent],
+      imports: [FormsModule, MatButtonModule, MatRadioModule, MatSlideToggleModule, MatTableModule]
+    }).compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SetupGameComponent);

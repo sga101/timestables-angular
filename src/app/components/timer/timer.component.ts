@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TimerService } from 'src/app/services/timer.service';
+import { TimerService } from '../../services/timer.service';
 
 @Component({
   selector: 'app-timer',

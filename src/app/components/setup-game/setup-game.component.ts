@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TableSelection } from 'src/app/models/table-selection.model';
-import { GameService } from 'src/app/services/game.service';
-import { TableSelectionService } from 'src/app/services/table-selection.service';
+import { TableSelection } from '../../models/table-selection.model';
+import { GameService } from '../../services/game.service';
+import { TableSelectionService } from '../../services/table-selection.service';
 
 @Component({
   selector: 'app-setup-game',

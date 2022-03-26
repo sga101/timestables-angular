@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { TableSelection } from 'src/app/models/table-selection.model';
-import { TableSelectionService } from 'src/app/services/table-selection.service';
+import { TableSelection } from '../../models/table-selection.model';
+import { TableSelectionService } from '../../services/table-selection.service';
 
 @Component({
   selector: 'app-table-chooser',
