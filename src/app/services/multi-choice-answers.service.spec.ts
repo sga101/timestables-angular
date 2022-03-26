@@ -1,18 +1,49 @@
 import { TestBed } from '@angular/core/testing';
+import { filter, map, Observable, take, withLatestFrom } from 'rxjs';
 import { Question } from '../models/question.model';
-import { generateChoices, MultiChoiceAnswersService } from './multi-choice-answers.service';
+import { Choices, generateChoices, MultiChoiceAnswersService } from './multi-choice-answers.service';
+import { QuestionService } from './question.service';
 import { RandomNumbersService } from './random-numbers.service';
+import { TableSelectionService } from './table-selection.service';
+import { TimerService } from './timer.service';
 
+function testChoices(
+  choices$: Observable<Choices>,
+  questions$: Observable<Question>,
+  predicate: (choice: number, question: Question) => boolean,
+  done
+) {
+  choices$
+    .pipe(
+      withLatestFrom(questions$),
+      take(1),
+      map(([choices, question]) => {
+        const matcher = (c) => predicate(c, question);
+        expect(choices.find(matcher)).not.toBeNull();
+        done();
+      })
+    )
+    .subscribe();
+}
 describe('MultiChoiceAnswersService', () => {
   let service: MultiChoiceAnswersService;
+  let questionService: QuestionService;
+  let questions$: Observable<Question>;
+  let choices$: Observable<Choices>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [MultiChoiceAnswersService, QuestionService, RandomNumbersService, TableSelectionService, TimerService]
+    });
+    questionService = TestBed.inject(QuestionService);
     service = TestBed.inject(MultiChoiceAnswersService);
+    questions$ = questionService.questions$.pipe(filter((q) => !!q));
+    choices$ = service.choices$.pipe(filter((c) => c.length === 4));
+    questionService.nextQuestion();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should generate the correct answer', (done) => {
+    testChoices(choices$, questions$, (c, q) => c === q.x * q.y, done);
   });
 });
 
@@ -65,15 +96,6 @@ describe('generateChoices', () => {
     for (let i = 1; i < 13; i++) {
       const question: Question = { ...sampleQuestion, x: i, y: i };
       const choices = generateChoices(question, randomNumbersService);
-      for (let j = 0; j < choices.length - 1; j++) {
-        expect(choices[j]).not.toEqual(choices[j + 1]);
-      }
-    }
-  });
-
-  it('should not have duplicate answers', () => {
-    for (let i = 0; i < 1000; i++) {
-      const choices = generateChoices(sampleQuestion, randomNumbersService);
       for (let j = 0; j < choices.length - 1; j++) {
         expect(choices[j]).not.toEqual(choices[j + 1]);
       }

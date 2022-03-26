@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { Question } from '../models/question.model';
 import { QuestionService } from './question.service';
 import { RandomNumbersService } from './random-numbers.service';
-import { Question } from '../models/question.model';
 
 export type Choices = number[];
 
@@ -36,6 +36,7 @@ export class MultiChoiceAnswersService {
     return result;
   }
 }
+
 export function generateChoices(q: Question, randomNumbersService: RandomNumbersService): Choices {
   const choices: Choices = [];
 
