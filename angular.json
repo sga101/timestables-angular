@@ -70,18 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "timesTables:build"
+            "buildTarget": "timesTables:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "timesTables:build:production"
+              "buildTarget": "timesTables:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "timesTables:build"
+            "buildTarget": "timesTables:build"
           }
         },
         "test": {
