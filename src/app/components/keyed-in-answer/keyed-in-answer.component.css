@@ -16,3 +16,8 @@ button {
   font-size: 52px;
   height: 61px;
 }
+
+/* bad practice but height is now forced to 48px with no obvious way to override it */
+.mat-mdc-button-base {
+  height: max(48px, 100%);
+}
