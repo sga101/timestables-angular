@@ -1,6 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule } from '@angular/material/card';
 import { CalculationsService } from '../../services/calculations.service';
 import { GameService } from '../../services/game.service';
 import { HistoryService } from '../../services/history.service';
@@ -19,7 +18,7 @@ describe('QuestionContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatCardModule],
+      imports: [],
       declarations: [QuestionContainerComponent],
       providers: [
         QuestionService,
