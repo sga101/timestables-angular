@@ -1,3 +1,4 @@
+@use "sass:map";
 @use '@angular/material' as mat;
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
@@ -15,9 +16,9 @@ $app-warn: mat.m2-define-palette(mat.$m2-red-palette);
 $app-theme: mat.m2-define-light-theme($app-primary, $app-accent, $app-warn);
 
 @mixin mix-app-theme($app-theme) {
-  $primary: map-get($app-theme, primary);
-  $accent: map-get($app-theme, accent);
-  $warn: map-get($app-theme, warn)
+  $primary: map.get($app-theme, primary);
+  $accent: map.get($app-theme, accent);
+  $warn: map.get($app-theme, warn)
 }
 // Include the mixin
 @include mix-app-theme($app-theme);

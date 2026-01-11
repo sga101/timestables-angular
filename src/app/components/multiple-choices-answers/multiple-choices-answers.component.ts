@@ -17,10 +17,10 @@ export class MultipleChoicesAnswersComponent {
   @Input() question: Question;
   @Output() answeredQuestion = new EventEmitter<number>();
 
-  answerQuestion(answer: string): void {
-    const parsed = parseInt(answer, 10);
-    if (!isNaN(parsed)) {
-      this.answeredQuestion.emit(parsed);
-    }
+  answerQuestion(answer: number): void {
+    //const parsed = parseInt(answer, 10);
+    //if (!isNaN(parsed)) {
+    this.answeredQuestion.emit(answer);
+    //}
   }
 }
