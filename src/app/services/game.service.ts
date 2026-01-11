@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { Question } from '../models/question.model';
@@ -16,6 +16,10 @@ export type GameStatus = 'Setup' | 'Playing' | 'Finished';
   providedIn: 'root'
 })
 export class GameService {
+  private questionsService = inject(QuestionService);
+  private resultsService = inject(ResultsService);
+  private historyService = inject(HistoryService);
+
   progress$: Observable<Progress>;
   isMultiChoice$: Observable<boolean>;
   gameStatus$: Observable<GameStatus>;
@@ -31,11 +35,7 @@ export class GameService {
   private isMultiChoice = true;
   private isMultiChoiceSubject: BehaviorSubject<boolean>;
 
-  constructor(
-    private questionsService: QuestionService,
-    private resultsService: ResultsService,
-    private historyService: HistoryService
-  ) {
+  constructor() {
     this.totalQuestions = 20;
 
     this.gameStatusSubject = new BehaviorSubject(this.gameStatus);

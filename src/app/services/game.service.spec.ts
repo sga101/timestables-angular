@@ -7,6 +7,8 @@ import { RandomNumbersService } from './random-numbers.service';
 import { ResultsService } from './results.service';
 import { TableSelectionService } from './table-selection.service';
 import { TimerService } from './timer.service';
+import { Injector, runInInjectionContext } from '@angular/core';
+import { time } from 'console';
 
 describe('GameService', () => {
   let service: GameService;
@@ -16,9 +18,56 @@ describe('GameService', () => {
 
   beforeEach(() => {
     historyService = new HistoryService();
-    questionService = new QuestionService(new TimerService(), new RandomNumbersService(), new TableSelectionService());
-    resultsService = new ResultsService(new CalculationsService(), historyService);
-    service = new GameService(questionService, resultsService, historyService);
+    var timerService = new TimerService();
+    var randomNumbersService = new RandomNumbersService();
+    var calculationsService = new CalculationsService();
+    var tableSelectionService = new TableSelectionService();
+
+    var providers = [
+      {
+        provide: TimerService,
+        useValue: timerService
+      },
+      {
+        provide: TableSelectionService,
+        useValue: tableSelectionService
+      },
+      {
+        provide: RandomNumbersService,
+        useValue: randomNumbersService
+      },
+      {
+        provide: CalculationsService,
+        useValue: calculationsService
+      },
+      {
+        provide: HistoryService,
+        useValue: historyService
+      },
+      
+    ];
+
+    const injector = Injector.create({ providers });
+
+    questionService = runInInjectionContext(injector, () => new QuestionService());
+    resultsService = runInInjectionContext(injector, () => new ResultsService());
+
+    var providers2 = [
+      ...providers,
+      {
+        provide: QuestionService,
+        useValue: questionService
+      },
+       {
+        provide: ResultsService,
+        useValue: resultsService
+      }
+    ];
+
+    const injector2 = Injector.create({ providers: providers2 });
+
+    resultsService = runInInjectionContext(injector2, () => new ResultsService());
+    service = runInInjectionContext(injector2, () => new GameService());
     service.questionDelay = 0;
   });
 

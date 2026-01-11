@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Question } from '../models/question.model';
@@ -11,11 +11,14 @@ export type Choices = number[];
   providedIn: 'root'
 })
 export class MultiChoiceAnswersService {
+  private questionsService = inject(QuestionService);
+  private randomNumbersService = inject(RandomNumbersService);
+
   private choicesSubject: BehaviorSubject<Choices>;
 
   public choices$: Observable<Choices>;
 
-  constructor(private questionsService: QuestionService, private randomNumbersService: RandomNumbersService) {
+  constructor() {
     this.choicesSubject = new BehaviorSubject<Choices>([]);
     this.choices$ = this.choicesSubject.asObservable();
     this.questionsService.questions$.pipe(filter((q) => !q || q.answers.length === 0)).subscribe((q) => {

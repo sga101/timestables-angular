@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Question } from '../models/question.model';
@@ -10,10 +10,13 @@ import { HistoryService } from './history.service';
   providedIn: 'root'
 })
 export class ResultsService {
+  private calculationService = inject(CalculationsService);
+  private historyService = inject(HistoryService);
+
   private resultsSubject: BehaviorSubject<Results>;
   results$: Observable<Results>;
 
-  constructor(private calculationService: CalculationsService, private historyService: HistoryService) {
+  constructor() {
     this.resultsSubject = new BehaviorSubject<Results>(null);
     this.results$ = this.resultsSubject.asObservable();
   }

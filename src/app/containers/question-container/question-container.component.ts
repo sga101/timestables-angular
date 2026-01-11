@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TableSummary, SummaryComponent } from '../../components/summary/summary.component';
@@ -31,6 +31,13 @@ import { ResultsComponent } from '../../components/results/results.component';
 ]
 })
 export class QuestionContainerComponent implements OnInit {
+  private readonly questionService = inject(QuestionService);
+  private readonly historyService = inject(HistoryService);
+  private readonly summaryService = inject(SummaryService);
+  private readonly resultsService = inject(ResultsService);
+  private readonly choicesService = inject(MultiChoiceAnswersService);
+  private readonly gameService = inject(GameService);
+
   question$: Observable<Question>;
   questionHistory$: Observable<Question[]>;
   summaryData$: Observable<TableSummary[]>;
@@ -43,15 +50,6 @@ export class QuestionContainerComponent implements OnInit {
   currentQuestion$: Observable<number>;
   totalQuestions$: Observable<number>;
   answerText$: Observable<string>;
-
-  constructor(
-    private readonly questionService: QuestionService,
-    private readonly historyService: HistoryService,
-    private readonly summaryService: SummaryService,
-    private readonly resultsService: ResultsService,
-    private readonly choicesService: MultiChoiceAnswersService,
-    private readonly gameService: GameService
-  ) {}
 
   ngOnInit(): void {
     this.question$ = this.questionService.questions$;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TableSelection } from '../../models/table-selection.model';
@@ -18,14 +18,14 @@ import { MatButton } from '@angular/material/button';
     imports: [TableChooserComponent, MatSlideToggle, MatRadioGroup, FormsModule, MatRadioButton, MatButton, AsyncPipe]
 })
 export class SetupGameComponent {
+  private readonly selectedTablesService = inject(TableSelectionService);
+  private readonly gameService = inject(GameService);
+
   selectedTables$: Observable<TableSelection[]>;
   isMultiChoice$: Observable<boolean>;
   isVisible$: Observable<boolean>;
 
-  constructor(
-    private readonly selectedTablesService: TableSelectionService,
-    private readonly gameService: GameService
-  ) {
+  constructor() {
     this.selectedTables$ = this.selectedTablesService.selected$;
     this.isMultiChoice$ = this.gameService.isMultiChoice$;
     this.isVisible$ = this.gameService.gameStatus$.pipe(map((s) => s === 'Setup'));

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Question } from '../models/question.model';
@@ -11,15 +11,15 @@ import { TimerService } from './timer.service';
   providedIn: 'root'
 })
 export class QuestionService {
+  private timerService = inject(TimerService);
+  private randomNumbersService = inject(RandomNumbersService);
+  private tableSelectionService = inject(TableSelectionService);
+
   selectedTables: TableSelection[];
   questions$: Observable<Question>;
   answerText$: Observable<string>;
 
-  constructor(
-    private timerService: TimerService,
-    private randomNumbersService: RandomNumbersService,
-    private tableSelectionService: TableSelectionService
-  ) {
+  constructor() {
     this.tableSelectionService.selected$.subscribe({ next: (selected) => (this.selectedTables = selected) });
     this.questionSubject = new BehaviorSubject<Question>(this.currentQuestion);
     this.questions$ = this.questionSubject.asObservable();

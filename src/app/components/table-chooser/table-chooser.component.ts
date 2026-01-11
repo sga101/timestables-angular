@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { TableSelection } from '../../models/table-selection.model';
 import { TableSelectionService } from '../../services/table-selection.service';
 import { NgClass } from '@angular/common';
@@ -11,9 +11,9 @@ import { MatButton } from '@angular/material/button';
     imports: [MatButton, NgClass]
 })
 export class TableChooserComponent {
-  @Input() selected: TableSelection[];
+  private tableSelectionService = inject(TableSelectionService);
 
-  constructor(private tableSelectionService: TableSelectionService) {}
+  @Input() selected: TableSelection[];
 
   toggled(item: TableSelection): void {
     this.tableSelectionService.toggle(item);
