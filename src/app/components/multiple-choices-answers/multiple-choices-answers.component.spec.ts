@@ -73,6 +73,6 @@ describe('MultipleChoicesAnswersComponent', () => {
       expect(a).toEqual(1);
       done();
     });
-    component.answerQuestion('1');
+    component.answerQuestion(1);
   });
 });

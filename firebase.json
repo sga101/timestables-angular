@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "timesTables",
-      "public": "dist/timesTables",
+      "public": "dist/timesTables/browser",
       "ignore": [
         "**/.*"
       ],
