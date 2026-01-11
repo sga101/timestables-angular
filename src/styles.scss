@@ -1,31 +1,35 @@
 @use '@angular/material' as mat;
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+// v3 themes need a lot of changes - project for another day
+//@import '@angular/material/prebuilt-themes/azure-blue.css';
+
+@include mat.all-component-typographies();
+@include mat.core();
+
+$app-primary: mat.m2-define-palette(mat.$m2-deep-purple-palette);
+$app-accent: mat.m2-define-palette(mat.$m2-amber-palette, A200, A100, A400);
+$app-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$app-theme: mat.m2-define-light-theme($app-primary, $app-accent, $app-warn);
+
+@mixin mix-app-theme($app-theme) {
+  $primary: map-get($app-theme, primary);
+  $accent: map-get($app-theme, accent);
+  $warn: map-get($app-theme, warn)
+}
+// Include the mixin
+@include mix-app-theme($app-theme);
+
+@include mat.all-component-bases($app-theme);
+
+
 html, body { height: 100%; }
 body { 
   margin: 0; 
   font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
 
-
-@include mat.all-component-typographies();
-@include mat.core();
-
-$app-primary: mat.define-palette(mat.$deep-purple-palette);
-$app-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
-$app-warn: mat.define-palette(mat.$amber-palette, A200, A100, A400);
-
-$app-theme: mat.define-light-theme($app-primary, $app-accent, $app-warn);
-
-@mixin mix-app-theme($app-theme) {
-  $primary: map-get($app-theme, primary);
-  $accent: map-get($app-theme, accent);
-}
-
-// Include the mixin
-@include mix-app-theme($app-theme);
-
-@include mat.all-component-bases($app-theme);
 
 h1 {
   font-size: 1.5rem;
