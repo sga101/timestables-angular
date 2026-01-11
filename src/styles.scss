@@ -25,6 +25,8 @@ $app-theme: mat.define-light-theme($app-primary, $app-accent, $app-warn);
 // Include the mixin
 @include mix-app-theme($app-theme);
 
+@include mat.all-component-bases($app-theme);
+
 h1 {
   font-size: 1.5rem;
   margin-block-start: 0.4rem;
