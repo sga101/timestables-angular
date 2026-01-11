@@ -3,9 +3,10 @@ import { TableSelection } from '../../models/table-selection.model';
 import { TableSelectionService } from '../../services/table-selection.service';
 
 @Component({
-  selector: 'app-table-chooser',
-  templateUrl: './table-chooser.component.html',
-  styleUrls: ['./table-chooser.component.css']
+    selector: 'app-table-chooser',
+    templateUrl: './table-chooser.component.html',
+    styleUrls: ['./table-chooser.component.css'],
+    standalone: false
 })
 export class TableChooserComponent {
   @Input() selected: TableSelection[];

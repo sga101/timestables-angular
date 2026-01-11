@@ -5,16 +5,18 @@ import { Question } from 'src/app/models/question.model';
 import { MultipleChoicesAnswersComponent } from './multiple-choices-answers.component';
 
 @Component({
-  selector: 'app-question',
-  template: '<span class="x">{{question.x}}</span><span class="y">{{question.y}}</span>'
+    selector: 'app-question',
+    template: '<span class="x">{{question.x}}</span><span class="y">{{question.y}}</span>',
+    standalone: false
 })
 export class MockQuestionComponent {
   @Input() question: Question;
 }
 
 @Component({
-  selector: 'app-answer-feedback',
-  template: '<span id="isCorrect">{{question.answeredCorrectly}}</span>'
+    selector: 'app-answer-feedback',
+    template: '<span id="isCorrect">{{question.answeredCorrectly}}</span>',
+    standalone: false
 })
 export class MockAnswerFeedbackComponent {
   @Input() question: Question;

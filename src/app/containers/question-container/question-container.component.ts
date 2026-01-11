@@ -12,10 +12,11 @@ import { ResultsService } from '../../services/results.service';
 import { SummaryService } from '../../services/summary.service';
 
 @Component({
-  selector: 'app-question-container',
-  templateUrl: './question-container.component.html',
-  styleUrls: ['./question-container.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-question-container',
+    templateUrl: './question-container.component.html',
+    styleUrls: ['./question-container.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class QuestionContainerComponent implements OnInit {
   question$: Observable<Question>;

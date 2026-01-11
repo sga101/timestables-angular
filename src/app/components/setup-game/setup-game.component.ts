@@ -6,9 +6,10 @@ import { GameService } from '../../services/game.service';
 import { TableSelectionService } from '../../services/table-selection.service';
 
 @Component({
-  selector: 'app-setup-game',
-  templateUrl: './setup-game.component.html',
-  styleUrls: ['./setup-game.component.css']
+    selector: 'app-setup-game',
+    templateUrl: './setup-game.component.html',
+    styleUrls: ['./setup-game.component.css'],
+    standalone: false
 })
 export class SetupGameComponent {
   selectedTables$: Observable<TableSelection[]>;

@@ -9,9 +9,10 @@ export interface TableSummary {
 }
 
 @Component({
-  selector: 'app-summary',
-  templateUrl: './summary.component.html',
-  styleUrls: ['./summary.component.css']
+    selector: 'app-summary',
+    templateUrl: './summary.component.html',
+    styleUrls: ['./summary.component.css'],
+    standalone: false
 })
 export class SummaryComponent {
   @Input() summaryData: TableSummary[];

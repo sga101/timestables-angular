@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { Question } from 'src/app/models/question.model';
 
 @Component({
-  selector: 'app-keyed-in-answer',
-  templateUrl: './keyed-in-answer.component.html',
-  styleUrls: ['./keyed-in-answer.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-keyed-in-answer',
+    templateUrl: './keyed-in-answer.component.html',
+    styleUrls: ['./keyed-in-answer.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class KeyedInAnswerComponent {
   @Input() question: Question;
