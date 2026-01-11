@@ -9,9 +9,8 @@ describe('KeyedInAnswerComponent', () => {
 
   beforeEach(async() => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
-      declarations: [KeyedInAnswerComponent, AnswerFeedbackComponent]
-    }).compileComponents();
+    imports: [ReactiveFormsModule, KeyedInAnswerComponent, AnswerFeedbackComponent]
+}).compileComponents();
   });
 
   beforeEach(() => {

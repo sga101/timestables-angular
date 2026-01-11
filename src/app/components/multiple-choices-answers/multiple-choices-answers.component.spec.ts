@@ -3,20 +3,22 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { Question } from 'src/app/models/question.model';
 import { MultipleChoicesAnswersComponent } from './multiple-choices-answers.component';
+import { QuestionComponent } from '../question/question.component';
+import { AnswerFeedbackComponent } from '../answer-feedback/answer-feedback.component';
 
 @Component({
-    selector: 'app-question',
-    template: '<span class="x">{{question.x}}</span><span class="y">{{question.y}}</span>',
-    standalone: false
+  selector: 'app-question',
+  template: '<span class="x">{{question.x}}</span><span class="y">{{question.y}}</span>',
+  imports: [MatButtonModule]
 })
 export class MockQuestionComponent {
   @Input() question: Question;
 }
 
 @Component({
-    selector: 'app-answer-feedback',
-    template: '<span id="isCorrect">{{question.answeredCorrectly}}</span>',
-    standalone: false
+  selector: 'app-answer-feedback',
+  template: '<span id="isCorrect">{{question.answeredCorrectly}}</span>',
+  imports: [MatButtonModule]
 })
 export class MockAnswerFeedbackComponent {
   @Input() question: Question;
@@ -28,9 +30,13 @@ describe('MultipleChoicesAnswersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatButtonModule],
-      declarations: [MultipleChoicesAnswersComponent, MockQuestionComponent, MockAnswerFeedbackComponent]
-    }).compileComponents();
+      imports: [MatButtonModule, MultipleChoicesAnswersComponent, MockQuestionComponent, MockAnswerFeedbackComponent]
+    })
+      .overrideComponent(MultipleChoicesAnswersComponent, {
+        remove: { imports: [QuestionComponent, AnswerFeedbackComponent] },
+        add: { imports: [MockAnswerFeedbackComponent, MockQuestionComponent] }
+      })
+      .compileComponents();
   });
 
   beforeEach(() => {

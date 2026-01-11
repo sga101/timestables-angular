@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TableSummary } from '../../components/summary/summary.component';
+import { TableSummary, SummaryComponent } from '../../components/summary/summary.component';
 import { Question } from '../../models/question.model';
 import { Results } from '../../models/results.model';
 import { GameService } from '../../services/game.service';
@@ -10,13 +10,26 @@ import { Choices, MultiChoiceAnswersService } from '../../services/multi-choice-
 import { QuestionService } from '../../services/question.service';
 import { ResultsService } from '../../services/results.service';
 import { SummaryService } from '../../services/summary.service';
+import { SetupGameComponent } from '../../components/setup-game/setup-game.component';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { MultipleChoicesAnswersComponent } from '../../components/multiple-choices-answers/multiple-choices-answers.component';
+import { KeyedInAnswerComponent } from '../../components/keyed-in-answer/keyed-in-answer.component';
+import { ResultsComponent } from '../../components/results/results.component';
 
 @Component({
-    selector: 'app-question-container',
-    templateUrl: './question-container.component.html',
-    styleUrls: ['./question-container.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-question-container',
+  templateUrl: './question-container.component.html',
+  styleUrls: ['./question-container.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    SetupGameComponent,
+    NgIf,
+    MultipleChoicesAnswersComponent,
+    KeyedInAnswerComponent,
+    ResultsComponent,
+    SummaryComponent,
+    AsyncPipe
+  ]
 })
 export class QuestionContainerComponent implements OnInit {
   question$: Observable<Question>;

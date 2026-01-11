@@ -6,10 +6,9 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    imports: [RouterTestingModule, AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   });
 
   it('should create the app', () => {

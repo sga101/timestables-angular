@@ -18,9 +18,8 @@ describe('QuestionContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [],
-      declarations: [QuestionContainerComponent],
-      providers: [
+    imports: [QuestionContainerComponent],
+    providers: [
         QuestionService,
         SummaryService,
         ResultsService,
@@ -31,9 +30,9 @@ describe('QuestionContainerComponent', () => {
         RandomNumbersService,
         TableSelectionService,
         CalculationsService
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    }).compileComponents();
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+}).compileComponents();
   });
 
   beforeEach(() => {

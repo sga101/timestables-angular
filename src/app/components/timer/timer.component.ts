@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TimerService } from '../../services/timer.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-timer',
     templateUrl: './timer.component.html',
     styleUrls: ['./timer.component.css'],
-    standalone: false
+    imports: [AsyncPipe]
 })
 export class TimerComponent {
   totalTime$: Observable<string>;

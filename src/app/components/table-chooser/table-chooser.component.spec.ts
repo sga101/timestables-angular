@@ -9,9 +9,8 @@ describe('TableChooserComponent', () => {
 
   beforeEach(async() => {
     await TestBed.configureTestingModule({
-      imports: [MatButtonToggleModule, MatCardModule],
-      declarations: [TableChooserComponent]
-    }).compileComponents();
+    imports: [MatButtonToggleModule, MatCardModule, TableChooserComponent]
+}).compileComponents();
   });
 
   beforeEach(() => {

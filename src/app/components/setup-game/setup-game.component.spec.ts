@@ -13,8 +13,15 @@ describe('SetupGameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SetupGameComponent, TableChooserComponent],
-      imports: [FormsModule, MatButtonModule, MatRadioModule, MatSlideToggleModule, MatTableModule]
+      imports: [
+        FormsModule,
+        MatButtonModule,
+        MatRadioModule,
+        MatSlideToggleModule,
+        MatTableModule,
+        SetupGameComponent,
+        TableChooserComponent
+      ]
     }).compileComponents();
   });
 

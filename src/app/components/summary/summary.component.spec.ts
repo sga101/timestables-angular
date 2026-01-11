@@ -8,9 +8,8 @@ describe('SummaryComponent', () => {
 
   beforeEach(async() => {
     TestBed.configureTestingModule({
-      imports: [MatTableModule],
-      declarations: [SummaryComponent]
-    }).compileComponents();
+    imports: [MatTableModule, SummaryComponent]
+}).compileComponents();
   });
 
   beforeEach(() => {

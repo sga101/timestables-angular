@@ -8,9 +8,8 @@ describe('ResultsComponent', () => {
 
   beforeEach(async() => {
     await TestBed.configureTestingModule({
-      imports: [MatButtonModule],
-      declarations: [ResultsComponent]
-    }).compileComponents();
+    imports: [MatButtonModule, ResultsComponent]
+}).compileComponents();
   });
 
   beforeEach(() => {

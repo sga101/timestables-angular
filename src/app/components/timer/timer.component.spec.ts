@@ -8,8 +8,8 @@ describe('TimerComponent', () => {
 
   beforeEach(async() => {
     TestBed.configureTestingModule({
-      declarations: [TimerComponent]
-    }).compileComponents();
+    imports: [TimerComponent]
+}).compileComponents();
   });
 
   beforeEach(() => {

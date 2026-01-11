@@ -8,8 +8,8 @@ describe('AnswerFeedbackComponent', () => {
 
   beforeEach(async() => {
     await TestBed.configureTestingModule({
-      declarations: [AnswerFeedbackComponent]
-    }).compileComponents();
+    imports: [AnswerFeedbackComponent]
+}).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,13 +1,33 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { enableProdMode, importProvidersFrom } from '@angular/core';
 
-import { AppModule } from './app/app.module';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app/app-routing.module';
+import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
-  .catch((err) => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    importProvidersFrom(
+      BrowserModule,
+      AppRoutingModule,
+      FormsModule,
+      MatInputModule,
+      MatButtonModule,
+      MatTableModule,
+      MatSlideToggleModule,
+      MatRadioModule
+    ),
+    provideAnimations()
+  ]
+}).catch((err) => console.error(err));
