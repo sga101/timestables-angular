@@ -11,7 +11,7 @@ import { QuestionService } from '../../services/question.service';
 import { ResultsService } from '../../services/results.service';
 import { SummaryService } from '../../services/summary.service';
 import { SetupGameComponent } from '../../components/setup-game/setup-game.component';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { MultipleChoicesAnswersComponent } from '../../components/multiple-choices-answers/multiple-choices-answers.component';
 import { KeyedInAnswerComponent } from '../../components/keyed-in-answer/keyed-in-answer.component';
 import { ResultsComponent } from '../../components/results/results.component';
@@ -23,13 +23,12 @@ import { ResultsComponent } from '../../components/results/results.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     SetupGameComponent,
-    NgIf,
     MultipleChoicesAnswersComponent,
     KeyedInAnswerComponent,
     ResultsComponent,
     SummaryComponent,
     AsyncPipe
-  ]
+]
 })
 export class QuestionContainerComponent implements OnInit {
   question$: Observable<Question>;

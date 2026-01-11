@@ -1,12 +1,13 @@
 <h2>Choose tables to practice</h2>
 <div class="buttons-container">
-  <button
-    mat-raised-button
-    *ngFor="let item of selected; index as i; trackBy: trackBy"
-    (click)="toggled(item)"
-    [color]="item.selected ? 'primary' : ''"
-    [ngClass]="{ selected: item.selected }"
-  >
-    {{ i + 1 }}
-  </button>
+  @for (item of selected; track trackBy(i, item); let i = $index) {
+    <button
+      mat-raised-button
+      (click)="toggled(item)"
+      [color]="item.selected ? 'primary' : ''"
+      [ngClass]="{ selected: item.selected }"
+      >
+      {{ i + 1 }}
+    </button>
+  }
 </div>

@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { TableSelection } from '../../models/table-selection.model';
 import { GameService } from '../../services/game.service';
 import { TableSelectionService } from '../../services/table-selection.service';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { TableChooserComponent } from '../table-chooser/table-chooser.component';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatRadioGroup, MatRadioButton } from '@angular/material/radio';
@@ -15,7 +15,7 @@ import { MatButton } from '@angular/material/button';
     selector: 'app-setup-game',
     templateUrl: './setup-game.component.html',
     styleUrls: ['./setup-game.component.css'],
-    imports: [NgIf, TableChooserComponent, MatSlideToggle, MatRadioGroup, FormsModule, MatRadioButton, MatButton, AsyncPipe]
+    imports: [TableChooserComponent, MatSlideToggle, MatRadioGroup, FormsModule, MatRadioButton, MatButton, AsyncPipe]
 })
 export class SetupGameComponent {
   selectedTables$: Observable<TableSelection[]>;

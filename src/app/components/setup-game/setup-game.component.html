@@ -1,21 +1,23 @@
-<div *ngIf="isVisible$ | async">
-  <app-table-chooser [selected]="selectedTables$ | async"></app-table-chooser>
-  <div class="group">
-    <mat-slide-toggle
-      #modeToggle
-      color="primary"
-      [checked]="isMultiChoice$ | async"
-      (toggleChange)="multiChoiceChanged(modeToggle.checked)"
-      >Multiple Choice</mat-slide-toggle
-    >
-  </div>
-  <div class="group">
-    <label id="questions-radio-group-label">Number of questions to answer</label>
-    <mat-radio-group aria-labelledby="questions-radio-group-label" [(ngModel)]="questionsToAnswer" color="primary">
-      <mat-radio-button value="10">10</mat-radio-button>
-      <mat-radio-button value="20">20</mat-radio-button>
-      <mat-radio-button value="66">66</mat-radio-button>
-    </mat-radio-group>
-  </div>
-  <div class="group"><button mat-raised-button color="primary" (click)="startGame()">Start game</button></div>
-</div>
+@if (isVisible$ | async) {
+  <div>
+    <app-table-chooser [selected]="selectedTables$ | async"></app-table-chooser>
+    <div class="group">
+      <mat-slide-toggle
+        #modeToggle
+        color="primary"
+        [checked]="isMultiChoice$ | async"
+        (toggleChange)="multiChoiceChanged(modeToggle.checked)"
+        >Multiple Choice</mat-slide-toggle
+        >
+      </div>
+      <div class="group">
+        <label id="questions-radio-group-label">Number of questions to answer</label>
+        <mat-radio-group aria-labelledby="questions-radio-group-label" [(ngModel)]="questionsToAnswer" color="primary">
+          <mat-radio-button value="10">10</mat-radio-button>
+          <mat-radio-button value="20">20</mat-radio-button>
+          <mat-radio-button value="66">66</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="group"><button mat-raised-button color="primary" (click)="startGame()">Start game</button></div>
+    </div>
+  }

@@ -1,29 +1,33 @@
 <div class="flex-container">
   <h1>Times Tables Practice</h1>
   <app-setup-game></app-setup-game>
-  <div *ngIf="questionsVisible$ | async">
-    <h2>Question {{ currentQuestion$ | async }} of {{ totalQuestions$ | async }}</h2>
-    <app-multiple-choices-answers
-      *ngIf="isMultiChoiceMode$ | async as isMultichoice; else keyedAnswer"
-      [question]="question$ | async"
-      [choices]="choices$ | async"
-      (answeredQuestion)="answeredQuestion($event)"
-    ></app-multiple-choices-answers>
-    <ng-template #keyedAnswer>
-      <app-keyed-in-answer
-        [question]="question$ | async"
-        [answerText]="answerText$ | async"
-        (answeredQuestion)="answeredQuestion($event)"
-      >
-      </app-keyed-in-answer>
-    </ng-template>
-  </div>
-  <div *ngIf="resultsVisible$ | async">
-    <app-results
-      [results]="results$ | async"
-      (startAgainClicked)="startAgain()"
-      (changeSettingsClicked)="changeSettings()"
-    ></app-results>
-    <app-summary [summaryData]="summaryData$ | async"></app-summary>
-  </div>
+  @if (questionsVisible$ | async) {
+    <div>
+      <h2>Question {{ currentQuestion$ | async }} of {{ totalQuestions$ | async }}</h2>
+      @if (isMultiChoiceMode$ | async; as isMultichoice) {
+        <app-multiple-choices-answers
+          [question]="question$ | async"
+          [choices]="choices$ | async"
+          (answeredQuestion)="answeredQuestion($event)"
+        ></app-multiple-choices-answers>
+      } @else {
+        <app-keyed-in-answer
+          [question]="question$ | async"
+          [answerText]="answerText$ | async"
+          (answeredQuestion)="answeredQuestion($event)"
+          >
+        </app-keyed-in-answer>
+      }
+    </div>
+  }
+  @if (resultsVisible$ | async) {
+    <div>
+      <app-results
+        [results]="results$ | async"
+        (startAgainClicked)="startAgain()"
+        (changeSettingsClicked)="changeSettings()"
+      ></app-results>
+      <app-summary [summaryData]="summaryData$ | async"></app-summary>
+    </div>
+  }
 </div>

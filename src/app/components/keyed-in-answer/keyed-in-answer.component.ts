@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Question } from 'src/app/models/question.model';
-import { NgIf } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { QuestionComponent } from '../question/question.component';
 import { AutoFocusDirective } from '../../focus.directive';
@@ -12,7 +12,7 @@ import { AnswerFeedbackComponent } from '../answer-feedback/answer-feedback.comp
     templateUrl: './keyed-in-answer.component.html',
     styleUrls: ['./keyed-in-answer.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgIf, FormsModule, QuestionComponent, AutoFocusDirective, MatButton, AnswerFeedbackComponent]
+    imports: [FormsModule, QuestionComponent, AutoFocusDirective, MatButton, AnswerFeedbackComponent]
 })
 export class KeyedInAnswerComponent {
   @Input() question: Question;

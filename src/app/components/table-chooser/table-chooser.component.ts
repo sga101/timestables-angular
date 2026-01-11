@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { TableSelection } from '../../models/table-selection.model';
 import { TableSelectionService } from '../../services/table-selection.service';
-import { NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'app-table-chooser',
     templateUrl: './table-chooser.component.html',
     styleUrls: ['./table-chooser.component.css'],
-    imports: [NgFor, MatButton, NgClass]
+    imports: [MatButton, NgClass]
 })
 export class TableChooserComponent {
   @Input() selected: TableSelection[];

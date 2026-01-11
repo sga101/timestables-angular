@@ -1,28 +1,28 @@
-<div *ngIf="question">
-  <form (ngSubmit)="answerQuestion()" #form="ngForm">
-    <label class="question">
-      <app-question [question]="question"></app-question>=
-      <input
-        #answer
-        type="number"
-        inputmode="numeric"
-        name="answer"
-        required
-        autocomplete="off"
-        appAutofocus
-        min="0"
-        max="144"
-        [(ngModel)]="answerText"
-        name="answerText"
-      />
-
-      <button mat-raised-button color="primary"  type="submit" [disabled]="!form.form.valid">
-
-        Submit
-      </button>
-    </label>
-  </form>
+@if (question) {
   <div>
-    <app-answer-feedback [question]="question"></app-answer-feedback>
+    <form (ngSubmit)="answerQuestion()" #form="ngForm">
+      <label class="question">
+        <app-question [question]="question"></app-question>=
+        <input
+          #answer
+          type="number"
+          inputmode="numeric"
+          name="answer"
+          required
+          autocomplete="off"
+          appAutofocus
+          min="0"
+          max="144"
+          [(ngModel)]="answerText"
+          name="answerText"
+          />
+        <button mat-raised-button color="primary"  type="submit" [disabled]="!form.form.valid">
+          Submit
+        </button>
+      </label>
+    </form>
+    <div>
+      <app-answer-feedback [question]="question"></app-answer-feedback>
+    </div>
   </div>
-</div>
+}

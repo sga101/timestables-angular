@@ -1,11 +1,13 @@
-<div *ngIf="question">
-  <ng-container *ngIf="question.answered; else placeholder">
-    <ng-container *ngIf="question.answeredCorrectly; else wrong">
-      <span class="good">Correct</span>
-    </ng-container>
-    <ng-template #wrong>
-      <span class="bad">Try again</span>
-    </ng-template>
-  </ng-container>
-  <ng-template #placeholder>&nbsp;</ng-template>
-</div>
+@if (question) {
+  <div>
+    @if (question.answered) {
+      @if (question.answeredCorrectly) {
+        <span class="good">Correct</span>
+      } @else {
+        <span class="bad">Try again</span>
+      }
+    } @else {
+      &nbsp;
+    }
+  </div>
+}

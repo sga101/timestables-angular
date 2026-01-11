@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Choices } from 'src/app/services/multi-choice-answers.service';
 import { Question } from 'src/app/models/question.model';
-import { NgIf, NgFor } from '@angular/common';
+
 import { QuestionComponent } from '../question/question.component';
 import { AnswerFeedbackComponent } from '../answer-feedback/answer-feedback.component';
 import { MatButton } from '@angular/material/button';
@@ -10,7 +10,7 @@ import { MatButton } from '@angular/material/button';
     selector: 'app-multiple-choices-answers',
     templateUrl: './multiple-choices-answers.component.html',
     styleUrls: ['./multiple-choices-answers.component.css'],
-    imports: [NgIf, QuestionComponent, AnswerFeedbackComponent, NgFor, MatButton]
+    imports: [QuestionComponent, AnswerFeedbackComponent, MatButton]
 })
 export class MultipleChoicesAnswersComponent {
   @Input() choices: Choices;

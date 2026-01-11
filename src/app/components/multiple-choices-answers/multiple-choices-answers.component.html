@@ -1,12 +1,16 @@
-<div class="choices" *ngIf="question">
-  <div><app-question [question]="question"></app-question></div>
-  <app-answer-feedback [question]="question"></app-answer-feedback>
-  <div class="answers flex-container">
-    <div class="flex-cell" *ngFor="let choice of choices">
-      <button mat-raised-button color="primary" (click)="answerQuestion(choice)" class="flex-item">
-        {{ choice }}
-      </button>
+@if (question) {
+  <div class="choices">
+    <div><app-question [question]="question"></app-question></div>
+    <app-answer-feedback [question]="question"></app-answer-feedback>
+    <div class="answers flex-container">
+      @for (choice of choices; track choice) {
+        <div class="flex-cell">
+          <button mat-raised-button color="primary" (click)="answerQuestion(choice)" class="flex-item">
+            {{ choice }}
+          </button>
+        </div>
+      }
     </div>
+    <br />
   </div>
-  <br />
-</div>
+}
