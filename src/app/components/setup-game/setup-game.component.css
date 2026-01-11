@@ -1,4 +1,4 @@
-.mat-radio-group {
+.mat-mdc-radio-group {
   display: flex;
   flex-direction: column;
 }
@@ -7,7 +7,7 @@ div.group {
   margin-top: 1.5rem;
 }
 
-.mat-radio-button {
+.mat-mdc-radio-button {
   margin-top: 0.4rem;
 }
 

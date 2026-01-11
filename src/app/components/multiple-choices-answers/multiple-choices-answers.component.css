@@ -1,4 +1,4 @@
-.mat-raised-button {
+.mat-mdc-raised-button {
   font-family: monospace;
   font-size: 3.6rem;
 }
@@ -17,6 +17,11 @@
   align-items: stretch;
   padding: 0.5rem;
   box-sizing: border-box;
+}
+
+/* bad practice but height is now forced to 48px with no obvious way to override it */
+.mat-mdc-button-base {
+  height: max(48px, 100%);
 }
 
 /* Minimum aspect ratio */
