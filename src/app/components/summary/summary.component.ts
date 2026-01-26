@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import {
-  MatTable,
+  MatTableModule,
   MatColumnDef,
   MatHeaderCellDef,
   MatHeaderCell,
@@ -26,7 +26,7 @@ export interface TableSummary {
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css'],
   imports: [
-    MatTable,
+    MatTableModule,
     MatColumnDef,
     MatHeaderCellDef,
     MatHeaderCell,
