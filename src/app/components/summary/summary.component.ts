@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+
+import { DecimalPipe } from '@angular/common';
 import {
   MatTableModule,
   MatColumnDef,
@@ -11,7 +13,6 @@ import {
   MatRowDef,
   MatRow
 } from '@angular/material/table';
-import { DecimalPipe } from '@angular/common';
 
 export interface TableSummary {
   table: number;
