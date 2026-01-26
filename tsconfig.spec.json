@@ -8,6 +8,9 @@
     ],
     "module": "commonjs",
     "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "allowJs": true
   },
   "files": [

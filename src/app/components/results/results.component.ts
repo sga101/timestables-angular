@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Results } from 'src/app/models/results.model';
+import { Results } from '../../models/results.model';
 import { DecimalPipe } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { AutoFocusDirective } from '../../focus.directive';

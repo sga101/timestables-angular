@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { Question } from 'src/app/models/question.model';
-import { MultipleChoicesAnswersComponent } from './multiple-choices-answers.component';
-import { QuestionComponent } from '../question/question.component';
+import { Question } from '../../models/question.model';
 import { AnswerFeedbackComponent } from '../answer-feedback/answer-feedback.component';
+import { QuestionComponent } from '../question/question.component';
+import { MultipleChoicesAnswersComponent } from './multiple-choices-answers.component';
 
 @Component({
   selector: 'app-question',

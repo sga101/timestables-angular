@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Question } from 'src/app/models/question.model';
-
 import { FormsModule } from '@angular/forms';
-import { QuestionComponent } from '../question/question.component';
-import { AutoFocusDirective } from '../../focus.directive';
 import { MatButton } from '@angular/material/button';
+
+import { AutoFocusDirective } from '../../focus.directive';
+import { Question } from '../../models/question.model';
 import { AnswerFeedbackComponent } from '../answer-feedback/answer-feedback.component';
+import { QuestionComponent } from '../question/question.component';
 
 @Component({
     selector: 'app-keyed-in-answer',
