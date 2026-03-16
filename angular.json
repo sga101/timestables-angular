@@ -85,10 +85,9 @@
           }
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "scripts": []
+            "buildTarget": "timesTables:build:production"
           }
         },
         "deploy": {

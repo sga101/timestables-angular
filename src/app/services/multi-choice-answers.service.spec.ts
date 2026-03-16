@@ -42,9 +42,10 @@ describe('MultiChoiceAnswersService', () => {
     questionService.nextQuestion();
   });
 
-  it('should generate the correct answer', (done) => {
-    testChoices(choices$, questions$, (c, q) => c === q.x * q.y, done);
-  });
+  it('should generate the correct answer', async () =>
+    new Promise<void>((done) => {
+      testChoices(choices$, questions$, (c, q) => c === q.x * q.y, done);
+    }));
 });
 
 describe('generateChoices', () => {

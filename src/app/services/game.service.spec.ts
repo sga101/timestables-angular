@@ -8,7 +8,6 @@ import { ResultsService } from './results.service';
 import { TableSelectionService } from './table-selection.service';
 import { TimerService } from './timer.service';
 import { Injector, runInInjectionContext } from '@angular/core';
-import { time } from 'console';
 
 describe('GameService', () => {
   let service: GameService;
@@ -43,8 +42,7 @@ describe('GameService', () => {
       {
         provide: HistoryService,
         useValue: historyService
-      },
-      
+      }
     ];
 
     const injector = Injector.create({ providers });
@@ -58,7 +56,7 @@ describe('GameService', () => {
         provide: QuestionService,
         useValue: questionService
       },
-       {
+      {
         provide: ResultsService,
         useValue: resultsService
       }
@@ -71,62 +69,62 @@ describe('GameService', () => {
     service.questionDelay = 0;
   });
 
-  it('should start in setup mode', (done) => {
-    service.gameStatus$.subscribe((status) => {
-      expect(status).toEqual('Setup');
-      done();
-    });
-  });
+  it('should start in setup mode', async () =>
+    new Promise<void>((done) => {
+      service.gameStatus$.subscribe((status) => {
+        expect(status).toEqual('Setup');
+        done();
+      });
+    }));
 
-  it('should set status = playing after reset', (done) => {
-    service.reset(1);
-    service.gameStatus$.subscribe((status) => {
-      expect(status).toEqual('Playing');
-      done();
-    });
-  });
+  it('should set status = playing after reset', async () =>
+    new Promise<void>((done) => {
+      service.reset(1);
+      service.gameStatus$.subscribe((status) => {
+        expect(status).toEqual('Playing');
+        done();
+      });
+    }));
 
-  it('should end game after last question is answered correctly', (done) => {
-    // automatically answer all the question
-    questionService.questions$
-      .pipe(
-        filter((question) => question && !question.answered),
-        map((question) => questionService.answerQuestion(question.x * question.y))
-      )
-      .subscribe();
+  it('should end game after last question is answered correctly', async () =>
+    new Promise<void>((done) => {
+      // automatically answer all the question
+      questionService.questions$
+        .pipe(
+          filter((question) => question && !question.answered),
+          map((question) => questionService.answerQuestion(question.x * question.y))
+        )
+        .subscribe();
 
-    // monitor the game status
-    service.gameStatus$
-      .pipe(
-        filter((gameStatus) => gameStatus === 'Finished'),
-        map(() => done())
-      )
-      .subscribe();
+      // monitor the game status
+      service.gameStatus$
+        .pipe(
+          filter((gameStatus) => gameStatus === 'Finished'),
+          map(() => done())
+        )
+        .subscribe();
 
-    // start a game with 2 questions
-    service.reset(2);
-  });
+      // start a game with 2 questions
+      service.reset(2);
+    }));
 
-  it('should change multichoice mode when requested', (done) => {
-    service.isMultiChoice$
-      .pipe(
-        pairwise(),
-        map(([first, second]) => {
-          try {
+  it('should change multichoice mode when requested', async () =>
+    new Promise<void>((done) => {
+      service.isMultiChoice$
+        .pipe(
+          pairwise(),
+          map(([first, second]) => {
             expect(first).toBeTruthy();
             expect(second).toBeFalsy();
             done();
-          } catch (error) {
-            done(error);
-          }
-        })
-      )
-      .subscribe();
-    service.setMultiChoiceMode(true);
-    service.setMultiChoiceMode(false);
-  });
+          })
+        )
+        .subscribe();
+      service.setMultiChoiceMode(true);
+      service.setMultiChoiceMode(false);
+    }));
 
-  it('should revert to setup when changeSettings is called', (done) => {
+  it('should revert to setup when changeSettings is called', async () => new Promise<void> (done => {
     service.gameStatus$
       .pipe(
         pairwise(),
@@ -139,5 +137,5 @@ describe('GameService', () => {
       .subscribe();
     service.reset(1);
     service.changeSettings();
-  });
+  }));
 });

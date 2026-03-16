@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "module": "es2020",
+    "module": "ES2022",
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",

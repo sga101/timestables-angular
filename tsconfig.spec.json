@@ -4,9 +4,9 @@
     "outDir": "./out-tsc/spec",
     "types": [
       "node",
-      "jest"
+      "jasmine"
     ],
-    "module": "commonjs",
+    "module": "ES2022",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,

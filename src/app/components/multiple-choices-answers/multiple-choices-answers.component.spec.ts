@@ -68,11 +68,11 @@ describe('MultipleChoicesAnswersComponent', () => {
     expect(y.textContent).toEqual('2');
   });
 
-  it('should emit the answer', (done) => {
+  it('should emit the answer', async () => new Promise<void>(done => {
     const sub = component.answeredQuestion.subscribe((a) => {
       expect(a).toEqual(1);
       done();
     });
     component.answerQuestion(1);
-  });
+  }));
 });
